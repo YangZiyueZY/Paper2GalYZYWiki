@@ -7,8 +7,7 @@ top: 100
 
 # 木偶「桑多涅」-Sandrone
 
-![木偶「桑多涅」-Sandrone](avatar.png)
-
+![木偶「桑多涅」-Sandrone](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Sandrone/avatar.png)
 ## 角色简介
 
 桑多涅（Sandrone），代号「木偶」，提瓦特大陆顶尖的纯机械造物大师，效忠冰之女皇，是愚人众绝大多数机械军备（包括遗迹守卫系列、冒险家协会接待员凯瑟琳原型机）的缔造者，也是执行官中唯二能与博士在科研领域平等交流的学者。常年沉浸在至冬的实验室中，痴迷于人与机械共生的研究，身边永远跟着她最信赖的巨型机械随从「普罗尼亚」，对机械有着极致的敬畏与执念，是提瓦特公认的、能赋予冰冷金属灵魂的顶尖奇械师   。

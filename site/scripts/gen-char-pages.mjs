@@ -3,10 +3,12 @@
  *
  * 从角色源目录（默认 E:\BaiduNetdiskDownload666\AI Work\Paper2Gal\Agent）
  * 为每个角色生成：
- *   pages/<zijian|erchuang>/<英文名>/index.md      —— 角色介绍文档（description + avatar）
+ *   pages/<zijian|erchuang>/<英文名>/index.md      —— 角色介绍文档（description + avatar 链接）
  *   pages/<zijian|erchuang>/<英文名>/changelog.md  —— 角色更新日志文档
- *   pages/<zijian|erchuang>/<英文名>/avatar.png    —— 角色图片
  *   pages/<zijian|erchuang>/index.md               —— 分类落地页
+ *   role-images/<英文名>/avatar.png                —— 角色图片集中目录，随 git 推送 GitHub，
+ *                                                    页面用 raw 链接引用；.dockerignore 已排除该目录，
+ *                                                    构建时不会拉取/打包图片
  *
  * 注意：页面文件路径必须为 ASCII（valaxy rc.6 对非 ASCII 路径的 SSG 输出有
  * 双重编码问题，会导致部署后 404）。中文名称只出现在 title / 分类 / 正文中。
@@ -19,9 +21,14 @@
  */
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { SRC_ROOT, CATEGORY_DIR, charPagesRoot, displayName, uidOf, categoryOf, asciiName } from './char-lib.mjs'
+import { SRC_ROOT, SITE_ROOT, CATEGORY_DIR, charPagesRoot, displayName, uidOf, categoryOf, asciiName } from './char-lib.mjs'
 
 const PAGES_ROOT = charPagesRoot()
+
+/** 角色图片集中目录（仓库根 role-images/，随 git 推送到 GitHub） */
+const ROLE_IMAGES_ROOT = path.resolve(SITE_ROOT, '..', 'role-images')
+/** 角色头像的 GitHub raw 链接前缀（页面直接引用，不随构建产物打包） */
+const AVATAR_BASE = 'https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images'
 
 const TODAY = new Date().toISOString().slice(0, 10)
 
@@ -53,8 +60,8 @@ function descToMarkdown(text) {
   return out.join('\n').replace(/\n{3,}/g, '\n\n')
 }
 
-/** 角色介绍文档 */
-function buildIndexMd(name, uid, category, avatarName, descMd) {
+/** 角色介绍文档（avatarUrl 为 null 时不输出图片行） */
+function buildIndexMd(name, uid, category, avatarUrl, descMd) {
   const [intro, ...rest] = descMd.split(/\n\n+/)
   const restMd = rest.join('\n\n').trim()
   return `---
@@ -66,8 +73,7 @@ top: 100
 
 # ${name}
 
-![${name}](${avatarName})
-
+${avatarUrl ? `![${name}](${avatarUrl})` : ''}
 ## 角色简介
 
 ${intro.trim()}
@@ -142,7 +148,8 @@ function buildCategoryIndexMd(category, chars) {
   const rows = chars
     .map((c) => {
       const esc = s => s.replace(/[|]/g, '\\|')
-      return `| ![${esc(c.name)}](./${c.folder}/avatar.png) | [${esc(c.name)}](./${c.folder}/) | [更新日志](./${c.folder}/changelog) |`
+      const avatarCell = c.avatarUrl ? `![${esc(c.name)}](${c.avatarUrl})` : '-'
+      return `| ${avatarCell} | [${esc(c.name)}](./${c.folder}/) | [更新日志](./${c.folder}/changelog) |`
     })
     .join('\n')
   const intro = category === '自建'
@@ -214,19 +221,24 @@ for (const p of plans) {
 
   mkdirSync(charDir, { recursive: true })
 
-  // 角色图片：avatar.png（若没有则跳过）
+  // 角色图片：avatar.png 复制到 role-images/<folder>/（随 git 推送 GitHub，页面用 raw 链接引用）
   const avatar = path.join(srcDir, 'avatar.png')
-  if (existsSync(avatar))
-    copyFileSync(avatar, path.join(charDir, 'avatar.png'))
+  let avatarUrl = null
+  if (existsSync(avatar)) {
+    const destDir = path.join(ROLE_IMAGES_ROOT, folder)
+    mkdirSync(destDir, { recursive: true })
+    copyFileSync(avatar, path.join(destDir, 'avatar.png'))
+    avatarUrl = `${AVATAR_BASE}/${folder}/avatar.png`
+  }
 
   // 介绍文档
   const desc = readFileSync(path.join(srcDir, 'description.txt'), 'utf8')
-  writeFileSync(path.join(charDir, 'index.md'), buildIndexMd(name, uid, category, 'avatar.png', descToMarkdown(desc)), 'utf8')
+  writeFileSync(path.join(charDir, 'index.md'), buildIndexMd(name, uid, category, avatarUrl, descToMarkdown(desc)), 'utf8')
 
   // 更新日志文档
   writeFileSync(path.join(charDir, 'changelog.md'), buildChangelogMd(name, category), 'utf8')
 
-  generated[category].push({ name, uid, folder })
+  generated[category].push({ name, uid, folder, avatarUrl })
   console.log(`✔ ${category} / ${folder} (${name})`)
 }
 

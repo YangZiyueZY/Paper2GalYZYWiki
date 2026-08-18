@@ -7,8 +7,7 @@ top: 100
 
 # 汤汤-Tangtang
 
-![汤汤-Tangtang](avatar.png)
-
+![汤汤-Tangtang](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Tangtang/avatar.png)
 ## 角色简介
 
 汤汤是游戏《明日方舟：终末地》中的六星寒冷属性术师干员。身为“清波寨”大当家的她，手持“手铳”作战，是一位性格直爽、重情重义，又有些孩子气的菲林少女。

@@ -7,8 +7,7 @@ top: 100
 
 # 达妮娅-Daniya
 
-![达妮娅-Daniya](avatar.png)
-
+![达妮娅-Daniya](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Daniya/avatar.png)
 ## 角色简介
 
 达妮娅，是游戏《鸣潮》中的五星热熔属性音感仪角色，预计于3.3周年庆版本下半登场。她是星炬学院虚质科学部的一名学生，平日里总是带着温柔慵懒的微笑，偶尔说些俏皮话，最爱静静地打盹和观察身边的人们。

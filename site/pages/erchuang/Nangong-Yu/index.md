@@ -7,8 +7,7 @@ top: 100
 
 # 南宫羽-Nangong Yu
 
-![南宫羽-Nangong Yu](avatar.png)
-
+![南宫羽-Nangong Yu](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Nangong-Yu/avatar.png)
 ## 角色简介
 
 南宫羽是游戏《绝区零》中的人气虚拟偶像团体「妄想天使」的队长兼主舞。她拥有S级以太属性，是一位兼顾异常积蓄与失衡效率的速切型击破代理人。在舞台上，她性格活泼又富有魅力，言行中总带着一丝微妙的“撩人”气质；而在舞台之下，她其实是一位拥有敏锐商业嗅觉和卓越偶像才能的“天才”。尽管她总说自己的梦想是“借来的”，却为这个小小的舞台倾注了超越常人的心血与算计。

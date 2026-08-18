@@ -7,8 +7,7 @@ top: 100
 
 # 格蕾修-Griseo
 
-![格蕾修-Griseo](avatar.png)
-
+![格蕾修-Griseo](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Griseo/avatar.png)
 ## 角色简介
 
 格蕾修是米哈游旗下游戏《崩坏3》及其衍生作品中的角色，身份为逐火之蛾十三英桀第十一位，刻印为「繁星」。她是一名天真、纯粹的可爱少女，因天生的弱感知和认知障碍，从小缺乏常识，难以理解情感与色彩以外的复杂事物。她唯一的兴趣是画画，科斯魔曾告诉她“用你的颜料，去为世界染上色彩”，这句话成为她行动的信念。然而，正是在这名看似最无害的少女手中，诞生了人类在对抗崩坏过程中，毁灭世界的最终兵器。

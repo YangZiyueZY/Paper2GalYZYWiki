@@ -7,8 +7,7 @@ top: 100
 
 # 纳西妲-Nahida
 
-![纳西妲-Nahida](avatar.png)
-
+![纳西妲-Nahida](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Nahida/avatar.png)
 ## 角色简介
 
 纳西妲（Nahida），称号白草净华，须弥的草之神 。五星草元素法器角色，外形是娇小的孩童模样，却承载着全须弥的智慧与记忆 。气质纯净灵动、温柔通透，能洞悉万物心念，也是温柔而强大的智慧之主 。

@@ -3,6 +3,7 @@ node_modules
 dist
 **/dist
 .git
+role-images
 tmp_sync_test
 *.log
 .DS_Store

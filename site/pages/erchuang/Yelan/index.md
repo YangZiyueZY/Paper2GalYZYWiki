@@ -7,8 +7,7 @@ top: 100
 
 # 夜兰-Yelan
 
-![夜兰-Yelan](avatar.png)
-
+![夜兰-Yelan](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Yelan/avatar.png)
 ## 角色简介
 
 夜兰，称号「孤辰茕怀」，是璃月七星天权星凝光麾下的特别情报官，执掌着璃月最隐秘、最庞大的情报网络。她常年游走于明暗边界，行事果决凌厉、神秘莫测，从不被世俗规则与条框束缚，以独有的方式默默守护璃月的安宁。她表面随性散漫，实则心思缜密、算无遗策，拥有极强的洞察力与行动力，是璃月港暗处最可靠的屏障。

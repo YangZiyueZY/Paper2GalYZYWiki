@@ -7,8 +7,7 @@ top: 100
 
 # 银狼-Silver Wolf
 
-![银狼-Silver Wolf](avatar.png)
-
+![银狼-Silver Wolf](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Silver-Wolf/avatar.png)
 ## 角色简介
 
 银狼（Silver Wolf），星核猎手核心成员，全宇宙公认的顶尖天才黑客，称号「星核猎手」，命途为虚无，属性量子。能将整个现实世界视作可修改的游戏程序，随手就能改写规则、破解系统、植入漏洞，宇宙中没有她黑不进的防火墙，也没有她通不了的游戏关卡。把所有挑战都当成一场沉浸式游戏，毕生追求新鲜的刺激与高难度的副本。

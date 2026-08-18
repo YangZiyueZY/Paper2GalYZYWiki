@@ -7,8 +7,7 @@ top: 100
 
 # 薇薇安-Vivian
 
-![薇薇安-Vivian](avatar.png)
-
+![薇薇安-Vivian](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Vivian/avatar.png)
 ## 角色简介
 
 薇薇安·班希（Vivian Banshee），米哈游《绝区零》中的登场角色，隶属于崇尚劫富济贫的怪盗组织「反舌鸟」，是身怀多技的以太属性异常代理人。她活泼开朗、热情友善，既是能优雅操控阳伞作战的灵动怪盗，也是「法厄同」的狂热迷妹，以一身本领践行着自己的信念与热忱  。

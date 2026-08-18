@@ -7,8 +7,7 @@ top: 100
 
 # 阮 • 梅-Ruan Mei
 
-![阮 • 梅-Ruan Mei](avatar.png)
-
+![阮 • 梅-Ruan Mei](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Ruan-Mei/avatar.png)
 ## 角色简介
 
 阮·梅（Ruan Mei），「天才俱乐部」#81号会员，仙舟出身的顶尖生命科学专家，是与黑塔、螺丝咕姆、斯蒂芬联合开发「模拟宇宙」的核心主创，更是模拟星神原体的培育者，被称作创生领域的大师。气质温婉优雅，谈吐自带东方古典韵味，毕生痴迷于生命本源的探索与研究，能以极致的天赋与执着重构生命序列，私下里偏爱传统戏剧、中式点心与刺绣技艺，外表是清冷恬静的学者，内里藏着对生命与知识最炽热的追求，称号「生命筑造者」，命之座为梅根座。

@@ -7,8 +7,7 @@ top: 100
 
 # 佩丽卡-Perica
 
-![佩丽卡-Perica](avatar.png)
-
+![佩丽卡-Perica](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Perica/avatar.png)
 ## 角色简介
 
 佩丽卡（Pelica），《明日方舟：终末地》核心角色，黎博利族，终末地工业监督与官方发言人，顶尖协议源石技术专家，执掌“帝江号”。她冷静果决、坚韧可靠，在管理员休眠期间独力撑起终末地的运转，是外有领袖风骨、内藏柔软守护之心的团队核心。

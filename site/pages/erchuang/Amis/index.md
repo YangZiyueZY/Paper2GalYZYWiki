@@ -7,8 +7,7 @@ top: 100
 
 # 爱弥斯-Amis
 
-![爱弥斯-Amis](avatar.png)
-
+![爱弥斯-Amis](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Amis/avatar.png)
 ## 角色简介
 
 爱弥斯，是库洛游戏旗下开放世界动作RPG《鸣潮》中的五星热熔属性共鸣者，武器为迅刀，在3.1版本「远航星」中作为限定角色登场。她的核心设定，是一位为拯救世界而化作“电子幽灵”的少女。

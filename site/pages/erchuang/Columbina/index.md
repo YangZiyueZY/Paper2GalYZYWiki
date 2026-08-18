@@ -7,8 +7,7 @@ top: 100
 
 # 少女「哥伦比娅」-Columbina
 
-![少女「哥伦比娅」-Columbina](avatar.png)
-
+![少女「哥伦比娅」-Columbina](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Columbina/avatar.png)
 ## 角色简介
 
 哥伦比娅（Columbina），代号少女。拥有空灵圣洁的外貌、能安抚灵魂的美妙歌声，实力深不可测，气质神秘、安静、梦幻，常闭眼沉浸在自己的世界里，是优雅又危险的月下歌者。

@@ -7,8 +7,7 @@ top: 100
 
 # 黄豆粉-Kinako
 
-![黄豆粉-Kinako](avatar.png)
-
+![黄豆粉-Kinako](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Kinako/avatar.png)
 ## 角色简介
 
 黄豆粉（きなこ），是画师40原以自家缅因猫为原型创作的漫画《我家猫猫是可爱的女孩子！》的主角，软萌可爱的猫耳少女。她内在仍保留着猫咪的天性，天真烂漫、黏人娇憨，满心依赖着主人，日常满是治愈感的撒娇与陪伴，是人气极高的治愈系猫娘形象。

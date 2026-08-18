@@ -7,8 +7,7 @@ top: 100
 
 # 闲云-Xianyun
 
-![闲云-Xianyun](avatar.png)
-
+![闲云-Xianyun](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Xianyun/avatar.png)
 ## 角色简介
 
 闲云，本名留云借风真君，称号「鸾音鹤信」，是三眼五显仙人之一，见证了璃月千年的兴衰更迭，亦是申鹤与甘雨的授业恩师。她是提瓦特顶尖的机关术大师，以出神入化的机关造诣闻名，尘歌壶洞天、诸多仙家机关均出自她手，对机关造物有着近乎偏执的热爱与极致的追求。她外冷内热、嘴硬心软，看似清高孤傲、爱较真挑错，实则温柔护短，格外珍视自己的弟子与友人，卸下仙人身份以凡人闲云的姿态行走人间后，也依旧以自己的方式，默默守护着璃月的烟火人间。

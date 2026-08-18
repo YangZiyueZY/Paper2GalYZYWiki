@@ -7,8 +7,7 @@ top: 100
 
 # 芙莉莲-Frieren
 
-![芙莉莲-Frieren](avatar.png)
-
+![芙莉莲-Frieren](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Frieren/avatar.png)
 ## 角色简介
 
 芙莉莲（Frieren），漫画及动画《葬送的芙莉莲》核心主角，活了千年的精灵族大魔法使，曾是勇者辛美尔讨伐魔王小队的核心成员。她拥有大陆顶尖的魔法造诣，痴迷收集世间稀奇魔法，看似冷淡疏离、不通人情，实则内心细腻温柔，在漫长旅途中学着理解人类情感，珍惜与他人的羁绊。

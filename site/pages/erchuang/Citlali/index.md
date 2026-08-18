@@ -7,8 +7,7 @@ top: 100
 
 # 茜特菈莉-Citlali
 
-![茜特菈莉-Citlali](avatar.png)
-
+![茜特菈莉-Citlali](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Citlali/avatar.png)
 ## 角色简介
 
 茜特菈莉（Citlali），称号白星黑曜，《原神》纳塔五星冰元素法器角色。烟谜主唯一大萨满，被族人敬畏的“黑曜石奶奶”，外表沉稳神秘、气场强大，却藏着轻小说迷的可爱一面。

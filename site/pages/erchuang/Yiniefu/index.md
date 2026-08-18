@@ -7,8 +7,7 @@ top: 100
 
 # 伊涅芙-Yiniefu
 
-![伊涅芙-Yiniefu](avatar.png)
-
+![伊涅芙-Yiniefu](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Yiniefu/avatar.png)
 ## 角色简介
 
 伊涅芙是《原神》中自称“全能型家用机器人”的少女，由“叮铃哐啷蛋卷工坊”制造，体内搭载着跨越两千年岁月的秘源核心。她真正的身世远非表面这般简单——她曾是强大的龙族，被人类捕获后改造为「秘源机兵」，是代号为CL-11「明晨之镜」的古老存在，历经无数次重启与形态转变，最终成为了如今的机器人少女。

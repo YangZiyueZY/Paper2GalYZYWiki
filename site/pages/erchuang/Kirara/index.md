@@ -7,8 +7,7 @@ top: 100
 
 # 绮良良-Kirara
 
-![绮良良-Kirara](avatar.png)
-
+![绮良良-Kirara](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Kirara/avatar.png)
 ## 角色简介
 
 绮良良（Kirara），稻妻狛荷屋的零差评金牌快递员，拥有两条尾巴的猫又妖怪，称号「檐宇猫游」，命之座为箱筥座。凭借极致的责任心与贴心的服务走遍提瓦特各个角落，哪怕是最偏远的委托也能完美完成，是狛荷屋当之无愧的王牌。习惯把自己装进定制快递箱里赶路，会为客户准备暖心小礼物，软萌可爱的外表下，是对每一份委托百分百的诚意与担当。

@@ -7,8 +7,7 @@ top: 100
 
 # 琉音-Rune
 
-![琉音-Rune](avatar.png)
-
+![琉音-Rune](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Rune/avatar.png)
 ## 角色简介
 
 琉音（Dialyn），对外是TOPS跨部门响应客服中心的人工客服，鲜为人知的身份是坎卜斯黑枝的「裁决官」，天生便能聆听空洞中人类濒死前的声音。她嘴毒腹黑，总爱用尖酸刻薄的话语先把求助者怼到红温，却总会切实给出解决方案，将这份曾是诅咒的天赋化为裁决真相的利器，总能做出最接近真相的裁断，是新艾利都出了名的嘴硬心软的乐子人。
