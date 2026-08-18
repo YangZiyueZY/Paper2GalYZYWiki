@@ -40,3 +40,4 @@ site/public/feed.xml
 site/public/atom.xml
 site/public/feed.json
 site/public/valaxy-fuse-list.json
+site/scripts/sync-state.json

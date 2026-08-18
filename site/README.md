@@ -60,6 +60,20 @@ site/
 > 角色归类规则在 `scripts/gen-char-pages.mjs` 顶部的 `SELF_MADE` 数组里：
 > 列入该数组的按"自建"归类，其余一律按"二创"归类。自建角色新增后把它加进数组即可。
 
+## 更新已有角色后同步更新日志
+
+角色内容（description / avatar / 素材）更新后，自动把变更记入对应角色的更新日志：
+
+```bash
+pnpm -C site run sync:changelog   # 检测变更并追加 changelog.md（先停 dev server）
+pnpm -C site run gen:chars        # 重新同步页面内容与侧边栏
+```
+
+- 首次运行只建立基线快照（`scripts/sync-state.json`，已 gitignore），不写日志；
+- 之后每次运行对比快照，检测"哪个角色、哪些文件"变了，自动追加带日期的条目（同日去重）；
+- 新角色不会写日志（由 `gen:chars` 生成时写入"导入旧版资源"首条）；
+- 也可以用 ZCode skill：`/sync-changelog`（说"更新了角色X，同步日志"即可触发）。
+
 ## 手动维护
 
 - 侧边栏分类：`sidebar.ts`（自动生成，结构为 自建 / 二创 两大分组，每角色一个折叠栏）；

@@ -13,7 +13,8 @@
     "rss": "valaxy rss",
     "serve": "vite preview",
     "new": "valaxy new",
-    "gen:chars": "node scripts/gen-char-pages.mjs"
+    "gen:chars": "node scripts/gen-char-pages.mjs",
+    "sync:changelog": "node scripts/sync-changelog.mjs"
   },
   "dependencies": {
     "@iconify-json/carbon": "^1.2.9",

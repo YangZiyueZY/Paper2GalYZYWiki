@@ -19,35 +19,11 @@
  */
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import { SRC_ROOT, CATEGORY_DIR, charPagesRoot, displayName, uidOf, categoryOf, asciiName } from './char-lib.mjs'
 
-const SRC_ROOT = process.env.AGENT_SRC || 'E:/BaiduNetdiskDownload666/AI Work/Paper2Gal/Agent'
-const PAGES_ROOT = path.resolve(import.meta.dirname, '../pages')
-
-/** 自建角色（按展示名匹配，展示名 = 文件夹名去掉 " u_uid" 后缀） */
-const SELF_MADE = ['猫奈（GitHub娘）-CatNai', '苏沐曦-Su Muxi']
-
-const CATEGORY_DIR = { 自建: 'zijian', 二创: 'erchuang' }
+const PAGES_ROOT = charPagesRoot()
 
 const TODAY = new Date().toISOString().slice(0, 10)
-
-function displayName(dir) {
-  return dir.split(' u_')[0]
-}
-
-function uidOf(dir) {
-  return dir.split(' u_')[1] || ''
-}
-
-function categoryOf(name) {
-  return SELF_MADE.includes(name) ? '自建' : '二创'
-}
-
-/** 英文名（取展示名最后一个 "-" 之后的部分），用作 ASCII 目录名 */
-function asciiName(name) {
-  const en = name.split('-').pop() || ''
-  const ascii = en.replace(/\s+/g, '-').replace(/[^A-Za-z0-9_-]/g, '')
-  return ascii || ''
-}
 
 /** 把 description.txt 的纯文本转换为 Markdown */
 function descToMarkdown(text) {
