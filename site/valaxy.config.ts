@@ -29,6 +29,21 @@ const safelist = [
  * 新增角色后运行 `pnpm gen:chars` 即可自动更新。
  */
 
+/** 构建时间（北京时间，格式 2026.08.18 14:30），SSG 构建时写入页脚 */
+function buildTimeCn() {
+  const parts = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(new Date())
+  const get = (t: string) => parts.find(p => p.type === t)?.value ?? ''
+  return `${get('year')}.${get('month')}.${get('day')} ${get('hour')}:${get('minute')}`
+}
+
 export default defineValaxyConfig<PressTheme.Config>({
   siteConfig: {
     title: 'Paper2GalYZYWiki',
@@ -103,7 +118,7 @@ export default defineValaxyConfig<PressTheme.Config>({
     },
 
     footer: {
-      message: '本文档用于记录角色的 description 和更新说明。',
+      message: `联系方式：邮箱 <a href="mailto:anxueshan2022@outlook.com">anxueshan2022@outlook.com</a><br>构建于 ${buildTimeCn()}`,
       copyright: 'Copyright © 2026 <a href="https://p2g.sumuxi.cfd" target="_blank">Paper2GalYZYWiki</a>',
     },
   },
