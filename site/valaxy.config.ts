@@ -80,11 +80,11 @@ export default defineValaxyConfig<PressTheme.Config>({
         items: [
           {
             text: '源码仓库',
-            link: 'https://github.com/',
+            link: 'https://github.com/YangZiyueZY/Paper2GalYZYWiki',
           },
           {
             text: 'Issues',
-            link: 'https://github.com/',
+            link: 'https://github.com/YangZiyueZY/Paper2GalYZYWiki/issues',
           },
         ],
       },
@@ -93,13 +93,13 @@ export default defineValaxyConfig<PressTheme.Config>({
     socialLinks: [
       {
         icon: 'i-ri-github-line',
-        link: 'https://github.com/',
+        link: 'https://github.com/YangZiyueZY/Paper2GalYZYWiki',
       },
     ],
 
-    // “编辑此页”链接（TODO: 改为你的文档仓库地址）
+    // “编辑此页”链接（:path 会被替换为 pages/... 的相对路径，仓库内真实路径在 site/ 下）
     editLink: {
-      pattern: 'https://github.com/your-name/your-repo/edit/main/:path',
+      pattern: 'https://github.com/YangZiyueZY/Paper2GalYZYWiki/edit/main/site/:path',
       text: '在 GitHub 上编辑此页',
     },
 
