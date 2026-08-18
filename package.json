@@ -19,7 +19,7 @@
     "dev": "pnpm run dev:lib",
     "dev:lib": "pnpm -C packages/valaxy run dev",
     "dev:site": "pnpm -C site run dev",
-    "build:site": "pnpm -C site run build",
+    "build:site": "pnpm run build:@valaxyjs/utils && pnpm run build:valaxy && pnpm run build:devtools && pnpm -C site run build",
     "cli:debug": "tsx packages/valaxy/node/cli/index.ts debug",
     "preinstall": "npx only-allow pnpm"
   },
