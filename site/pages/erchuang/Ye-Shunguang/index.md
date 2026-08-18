@@ -7,7 +7,7 @@ top: 100
 
 # 叶瞬光-Ye Shunguang
 
-![叶瞬光-Ye Shunguang](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Ye-Shunguang/avatar.png)
+![叶瞬光-Ye Shunguang](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Ye-Shunguang/avatar.png)
 ## 角色简介
 
 叶瞬光，游戏《绝区零》中的S级凛刃属性强攻角色，是云岿山门主仪玄的弟子，在师门中排行第二，被大家称为“二师姐”。她不仅是继星见雅之后的第二位虚狩，更是镇山之宝「青溟剑」选中的当代剑主。曾经历旧都陷落、痛失至亲的她，手握强大力量却付出着“被青溟剑吞噬记忆与五感”的代价，只能依靠日记和照片去对抗遗忘。

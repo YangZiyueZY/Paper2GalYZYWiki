@@ -7,7 +7,7 @@ top: 100
 
 # 霄宫-Yoimiya
 
-![霄宫-Yoimiya](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Yoimiya/avatar.png)
+![霄宫-Yoimiya](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Yoimiya/avatar.png)
 ## 角色简介
 
 宵宫，全名长野原宵宫，是米哈游出品的游戏《原神》中的五星火元素弓箭手，角色定位是周期爆发的火元素输出型角色。她是稻妻城“长野原烟花店”的现任店主，才华横溢，技艺精湛，被人们亲切地誉为“夏祭的女王”。性格上，宵宫是一位热情似火的少女，身上交织着未泯的童心与匠人的执着。她对待烟花制作有着极高的天赋与热情，同时也非常享受与孩子们的互动，是众多孩子心目中的“英雄姐姐”。

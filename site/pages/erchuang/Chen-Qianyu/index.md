@@ -7,7 +7,7 @@ top: 100
 
 # 陈千语-Chen Qianyu
 
-![陈千语-Chen Qianyu](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Chen-Qianyu/avatar.png)
+![陈千语-Chen Qianyu](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Chen-Qianyu/avatar.png)
 ## 角色简介
 
 陈千语（Chen Qianyu），代号小陈。身为真龙后裔，隶属终末地工业，是佩丽卡的护卫与危机处理核心，武艺精湛、博闻强记，秉持公理与正义，身姿利落英气，兼具龙裔威严与侠客风骨，是迅捷凌厉、攻守兼备的近卫武者。

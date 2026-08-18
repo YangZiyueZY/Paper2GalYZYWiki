@@ -7,7 +7,7 @@ top: 100
 
 # 博士「多托雷」-Dottore
 
-![博士「多托雷」-Dottore](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Dottore/avatar.png)
+![博士「多托雷」-Dottore](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Dottore/avatar.png)
 ## 角色简介
 
 多托雷（Dottore），代号「博士」，提瓦特大陆公认的顶尖天才学者，也是被须弥教令院驱逐的「异端狂徒」，效忠冰之女皇。掌握着跨越数百年的「切片」技术，能将自己不同年龄段的意识与人格做成独立个体，在生物炼金、元素研究、机械工程、医学药理等多个领域都有登峰造极的造诣，是能颠覆世界规则的疯狂科学家，毕生追求是突破人与神明的界限，将世间一切都纳入自己的实验范畴。

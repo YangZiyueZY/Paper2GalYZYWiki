@@ -7,7 +7,7 @@ top: 100
 
 # 花火-Sparkle
 
-![花火-Sparkle](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Sparkle/avatar.png)
+![花火-Sparkle](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Sparkle/avatar.png)
 ## 角色简介
 
 花火，称号「假面愚者」，五星量子元素同谐角色，既是星核猎手的核心成员，亦是执掌匹诺康尼娱乐帝国的「家族」高层干部。她精通登峰造极的幻术与易容之术，常年以假面示人，性格狡黠跳脱、疯癫随性，将整个宇宙视作自己的游戏舞台，痴迷于制造跌宕起伏的戏剧冲突，以玩弄人心、编织精妙骗局为乐。她看似随心所欲、只追求眼前的“乐子”，实则心思缜密、算无遗策，是匹诺康尼主线剧情的关键推动者，暗中布局撬动了影响整个星球命运的诸多事件，就连朝夕相处的星核猎手同伴，也难以看透她层层假面之下的真实本心。

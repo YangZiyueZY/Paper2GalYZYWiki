@@ -7,7 +7,7 @@ top: 100
 
 # 星见雅-Hoshimi Miyabi
 
-![星见雅-Hoshimi Miyabi](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Hoshimi-Miyabi/avatar.png)
+![星见雅-Hoshimi Miyabi](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Hoshimi-Miyabi/avatar.png)
 ## 角色简介
 
 星见雅（Hoshimi Miyabi），称号虚狩·一心无我，《绝区零》S级烈霜属性异常/直伤双栖角色。对空洞特别行动部第六课课长、新艾利都武家继承人、史上最年轻“虚狩” 。气质冷峻沉稳、恪守秩序。

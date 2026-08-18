@@ -7,7 +7,7 @@ top: 100
 
 # 洛茜-Rosie
 
-![洛茜-Rosie](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Rosie/avatar.png)
+![洛茜-Rosie](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Rosie/avatar.png)
 ## 角色简介
 
 洛茜，全名洛茜娜·狼珀·卢皮诺（Rossi），是《明日方舟：终末地》中的六星物理近卫干员。身为裂地者狼群氏族年轻的首领，她以小红帽为设计原型，红色的兜帽是她最鲜明的特征。这份过早承担的重任，让她在氏族中英姿飒爽，却也失去了本该无忧无虑的童年。因此，她会偶尔幻想能放下一切，与传说中的英雄并肩冒险。

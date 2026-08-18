@@ -7,7 +7,7 @@ top: 100
 
 # 艾莲-Ellen
 
-![艾莲-Ellen](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Ellen/avatar.png)
+![艾莲-Ellen](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Ellen/avatar.png)
 ## 角色简介
 
 艾莲·乔，游戏《绝区零》中的S级冰属性强攻角色，是维多利亚家政的高效成员。她奉行“节能主义”，对一切费神费力之事都兴致缺缺，总是叼着棒棒糖，一副慵懒又冷漠的模样，因此被大家称为“鲨鱼妹”。然而，一旦进入工作状态，她便会展现出惊人的效率与强大的战力，是团队中不可或缺的武力担当。在女仆工作之外，她也有一群普通朋友，过着平静快乐的校园生活。

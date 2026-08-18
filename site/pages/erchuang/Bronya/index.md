@@ -7,7 +7,7 @@ top: 100
 
 # 布洛妮娅-Bronya
 
-![布洛妮娅-Bronya](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Bronya/avatar.png)
+![布洛妮娅-Bronya](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Bronya/avatar.png)
 ## 角色简介
 
 真理之律者（Herrscher of Truth），是《崩坏3》中布洛妮娅·扎伊切克的S级虚数属性装甲，于6.3“真理交响”版本登场。她将作为第一律者·理之律者的权能推向极致，成为完整的“真理之律者”。该角色兼具输出与元素辅助能力，可在挥舞长枪的「极值形态」与驾驶超现实机甲的「延拓形态」间切换。在「延拓形态」下，其必杀技不仅会造成大范围冰冻元素伤害，更能为全队提供稀有的元素穿透增益。

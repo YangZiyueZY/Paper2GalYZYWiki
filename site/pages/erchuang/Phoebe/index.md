@@ -7,7 +7,7 @@ top: 100
 
 # 菲比-Phoebe
 
-![菲比-Phoebe](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Phoebe/avatar.png)
+![菲比-Phoebe](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Phoebe/avatar.png)
 ## 角色简介
 
 菲比是库洛游戏旗下作品《鸣潮》中的五星衍射属性共鸣者，使用武器为音感仪，中配CV为傅婷云，日配CV为本渡枫。她是隐海修会的教士，一位友善虔诚、稳重得体，恪守教义的圣职者少女。

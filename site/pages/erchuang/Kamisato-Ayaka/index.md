@@ -7,7 +7,7 @@ top: 100
 
 # 神里绫华-Kamisato Ayaka
 
-![神里绫华-Kamisato Ayaka](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Kamisato-Ayaka/avatar.png)
+![神里绫华-Kamisato Ayaka](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Kamisato-Ayaka/avatar.png)
 ## 角色简介
 
 神里绫华，称号「白鹭霜华」，稻妻三奉行之一社奉行神里家的大小姐，被稻妻民众满怀敬意地尊称为「白鹭公主」。她出身名门世家，端庄温婉、知书达理，兼具世家贵女的优雅风骨与不容撼动的坚韧本心。在稻妻锁国令与眼狩令的动荡时期，她顶着重重压力，默默为守护稻妻民众、维系社奉行的职责奔走，亦是旅行者在稻妻冒险途中至关重要的引路人与伙伴。她身负神里家的家族重任，同时也藏着少女独有的柔软与纯粹，一手神里流太刀术造诣登峰造极。

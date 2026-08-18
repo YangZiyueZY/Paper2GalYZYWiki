@@ -7,7 +7,7 @@ top: 100
 
 # 胡桃-Hu Tao
 
-![胡桃-Hu Tao](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Hu-Tao/avatar.png)
+![胡桃-Hu Tao](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Hu-Tao/avatar.png)
 ## 角色简介
 
 胡桃，称号「雪霁梅香」，是璃月往生堂第七十七代堂主，也是提瓦特大陆最年轻的丧葬事务执掌者。她古灵精怪、脑洞奇大，总有着层出不穷的奇思妙想与恶作剧，看似玩世不恭、跳脱随性，实则对生死之道有着远超常人的通透认知与敬畏之心。她一手执掌着璃月传承千年的丧葬仪轨，肩负着送走迷途亡魂、安抚世间生者、守护璃月阴阳边界秩序的重任，行事看似不循常理，却始终坚守着往生堂“生死有度，往生安宁”的核心准则。

@@ -7,7 +7,7 @@ top: 100
 
 # 猫奈（GitHub娘）-CatNai
 
-![猫奈（GitHub娘）-CatNai](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/CatNai/avatar.png)
+![猫奈（GitHub娘）-CatNai](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/CatNai/avatar.png)
 ## 角色简介
 
 ## 【角色介绍】

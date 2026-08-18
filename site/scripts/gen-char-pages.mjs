@@ -27,8 +27,8 @@ const PAGES_ROOT = charPagesRoot()
 
 /** 角色图片集中目录（仓库根 role-images/，随 git 推送到 GitHub） */
 const ROLE_IMAGES_ROOT = path.resolve(SITE_ROOT, '..', 'role-images')
-/** 角色头像的 GitHub raw 链接前缀（页面直接引用，不随构建产物打包） */
-const AVATAR_BASE = 'https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images'
+/** 角色头像的 jsDelivr CDN 链接前缀（页面直接引用，不随构建产物打包） */
+const AVATAR_BASE = 'https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images'
 
 const TODAY = new Date().toISOString().slice(0, 10)
 

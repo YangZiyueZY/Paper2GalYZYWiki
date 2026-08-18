@@ -7,7 +7,7 @@ top: 100
 
 # 照-Zhao
 
-![照-Zhao](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Zhao/avatar.png)
+![照-Zhao](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Zhao/avatar.png)
 ## 角色简介
 
 照，是游戏《绝区零》中坎卜斯黑枝的裁决官，S级冰属性防护型代理人，于2.5版本「虚狩诞生之日」正式登场。这位身形娇小的少女手持比自身还高的巨斧，可爱外表与猛系武器形成了强烈反差，被玩家们亲切地称为“小照”。身为黑枝的精锐前辈，她却经常因为后辈同事们过于张扬的个性而感到困扰。其最核心的信条是重视“价值”与“等价交换”，从不以金钱衡量万物，而是以长远、客观的视角去评估目标的能力与潜力——据说，这种极致的务实与原则性，从她的童年时代便已深深扎根。

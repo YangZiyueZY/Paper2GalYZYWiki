@@ -7,7 +7,7 @@ top: 100
 
 # 长夜月-Changye Yue
 
-![长夜月-Changye Yue](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Changye-Yue/avatar.png)
+![长夜月-Changye Yue](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Changye-Yue/avatar.png)
 ## 角色简介
 
 长夜月（Chang Yueye），隐匿「岁月」火种的黄金裔，自记忆迷雾中而来的「记忆之子」，是三月七燃尽记忆后诞生的映影，与翁法罗斯「永夜之帷，欧洛尼斯」深度绑定，仅存在于开拓者的认知之中，以守护开拓者的开拓前路为毕生执念 。外表是冷峻邪魅的暗夜行者，内里藏着极致温柔的守护之心，称号「永夜映影」。

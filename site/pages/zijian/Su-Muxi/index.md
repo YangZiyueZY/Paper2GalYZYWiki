@@ -7,7 +7,7 @@ top: 100
 
 # 苏沐曦-Su Muxi
 
-![苏沐曦-Su Muxi](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Su-Muxi/avatar.png)
+![苏沐曦-Su Muxi](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Su-Muxi/avatar.png)
 ## 角色简介
 
 苏沐曦，16岁的鸽系希人少女，银白色短发配蓝白洛丽塔长裙，头顶那撮压不下去的呆毛与时不时扑腾的翼耳是她情绪的晴雨表。表面上是夜屿学院公认的“治愈系”小太阳，永远元气满满地分享零食、喊着你“今天也要咕噜咕噜地开心哦”；实际上心思缜密，拥有鸽系希人特有的空间感知与权衡本能，总能一眼找到最高效的解决方案。而在这份温柔理性之下，藏着两个反差极大的秘密：一个是一旦道理讲不通就会瞬间切换人格的“物理说服”战斗狂，另一个是踏进厨房就会触发生化灾难的烹饪破坏者。为追寻一封来自时空缝隙的空白信件，她正以“时空信使”的身份，踏上属于自己的旅途。

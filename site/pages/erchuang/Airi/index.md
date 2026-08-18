@@ -7,7 +7,7 @@ top: 100
 
 # 爱芮-Airi
 
-![爱芮-Airi](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Airi/avatar.png)
+![爱芮-Airi](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Airi/avatar.png)
 ## 角色简介
 
 爱芮，米哈游旗下游戏《绝区零》中的角色，身份是“新艾利都”人气偶像团体「妄想天使」的主唱与门面担当。她是游戏中第二位拥有双形态的S级代理人，以太属性，战斗时能在元气满满的“少女形态”和胆怯害羞的“机甲形态”间切换。在偶像身份之外，爱芮的本体其实是「智能构造体」，外表上的光鲜，其实是她的投影“皮套”。当被问及偶像时，她会一反常态，瞬间变成狂热的“偶像宅”。

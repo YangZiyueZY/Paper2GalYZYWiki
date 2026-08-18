@@ -13,5 +13,5 @@ top: 999
 
 | 角色 | 介绍 | 更新日志 |
 | --- | --- | --- |
-| ![猫奈（GitHub娘）-CatNai](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/CatNai/avatar.png) | [猫奈（GitHub娘）-CatNai](./CatNai/) | [更新日志](./CatNai/changelog) |
-| ![苏沐曦-Su Muxi](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Su-Muxi/avatar.png) | [苏沐曦-Su Muxi](./Su-Muxi/) | [更新日志](./Su-Muxi/changelog) |
+| ![猫奈（GitHub娘）-CatNai](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/CatNai/avatar.png) | [猫奈（GitHub娘）-CatNai](./CatNai/) | [更新日志](./CatNai/changelog) |
+| ![苏沐曦-Su Muxi](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Su-Muxi/avatar.png) | [苏沐曦-Su Muxi](./Su-Muxi/) | [更新日志](./Su-Muxi/changelog) |

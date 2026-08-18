@@ -7,7 +7,7 @@ top: 100
 
 # 知更鸟-Robin
 
-![知更鸟-Robin](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Robin/avatar.png)
+![知更鸟-Robin](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Robin/avatar.png)
 ## 角色简介
 
 知更鸟，称号「天籁行者」，五星虚数元素同谐命途角色，是享誉全银河的传奇歌者，亦是星核猎手的核心成员。她拥有能跨越星海、引发全银河生命共鸣的天籁之声，歌声可承载同谐的意志，抚平纷争、慰藉心灵，甚至能干涉星核的力量，无论何种种族、何种文明的生命，都能在她的歌声中获得安宁与共鸣。她气质温婉优雅、清冷通透，看似疏离于世间喧嚣，实则心怀对整个银河的温柔与悲悯，始终以自己的方式传递希望与力量。她受邀前往匹诺康尼举办谐乐大典，是匹诺康尼主线剧情的关键推动者。

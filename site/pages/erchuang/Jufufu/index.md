@@ -7,7 +7,7 @@ top: 100
 
 # 橘福福-Jufufu
 
-![橘福福-Jufufu](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Jufufu/avatar.png)
+![橘福福-Jufufu](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Jufufu/avatar.png)
 ## 角色简介
 
 橘福福，游戏《绝区零》中的S级火属性击破代理人，是云岿山门主仪玄最早收下的大弟子，一位外形娇小软糯、内心却怀揣英雄梦的稀有种族虎希人少女。她曾亲眼目睹自己所在的虎族聚落在“旧都陷落”事件中惨遭灭族，后被仪玄收留并培养成独当一面的修行者。作为云岿山的“大师姐”，她在同门中德高望重，但私下却是个可爱的吃货。

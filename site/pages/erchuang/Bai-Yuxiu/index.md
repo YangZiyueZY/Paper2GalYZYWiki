@@ -7,7 +7,7 @@ top: 100
 
 # 白钰袖-Bai Yuxiu
 
-![白钰袖-Bai Yuxiu](https://raw.githubusercontent.com/YangZiyueZY/Paper2GalYZYWiki/main/role-images/Bai-Yuxiu/avatar.png)
+![白钰袖-Bai Yuxiu](https://cdn.jsdelivr.net/gh/YangZiyueZY/Paper2GalYZYWiki@main/role-images/Bai-Yuxiu/avatar.png)
 ## 角色简介
 
 白钰袖，国产武侠动画《风灵玉秀》的双女主之一，人称「白大小姐」，是身负白家绝世无相功法的顶尖武学奇才。她容貌清丽绝尘，看似端庄温婉的世家闺秀，实则聪慧果敢、外柔内刚，骨子里藏着江湖儿女最赤诚的侠气与韧劲。常年与知己风铃儿相伴闯荡江湖，平日里沉静内敛、待人温和，唯独对珍视之人格外上心，重情重义至深，为了守护风铃儿可豁出一切，凭一身绝世武功与坦荡本心，在风波诡谲的江湖中走出了独属于自己的侠道。
