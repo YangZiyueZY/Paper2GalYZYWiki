@@ -31,14 +31,13 @@ const safelist = [
 
 export default defineValaxyConfig<PressTheme.Config>({
   siteConfig: {
-    // TODO: 部署后改为正式域名（用于生成 RSS / Sitemap）
     title: 'Paper2GalYZYWiki',
-    url: 'https://example.com',
+    url: 'https://p2g.sumuxi.cfd',
     description: '本文档是用于记录角色的description和更新说明。',
     favicon: '/logo.png',
     author: {
       name: 'Paper2GalYZYWiki',
-      link: 'https://example.com',
+      link: 'https://p2g.sumuxi.cfd',
       avatar: '/logo.png',
     },
 
@@ -105,7 +104,7 @@ export default defineValaxyConfig<PressTheme.Config>({
 
     footer: {
       message: '本文档用于记录角色的 description 和更新说明。',
-      copyright: 'Copyright © 2026 <a href="https://example.com" target="_blank">Paper2GalYZYWiki</a>',
+      copyright: 'Copyright © 2026 <a href="https://p2g.sumuxi.cfd" target="_blank">Paper2GalYZYWiki</a>',
     },
   },
 
