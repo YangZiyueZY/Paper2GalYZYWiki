@@ -38,15 +38,14 @@ site/
 │           └── changelog.md
 ├── valaxy.config.ts      # 站点配置
 ├── sidebar.ts            # 侧边栏（由生成脚本自动产出）
-└── scripts/gen-char-pages.mjs  # 角色导入脚本
+└── scripts/              # char-lib.mjs（共享规则）、gen-char-pages.mjs（导入）、sync-changelog.mjs（同步日志）
 ```
 
 > 说明：页面文件路径使用英文名（valaxy rc.6 对非 ASCII 路径的 SSG 输出存在双重编码问题，会导致部署后 404）；中文角色名显示在页面标题与正文中。
 
 ## 新增 / 更新角色
 
-1. 把角色文件夹（含 `description.txt` 与 `avatar.png`）放入源目录
-   `E:\BaiduNetdiskDownload666\AI Work\Paper2Gal\Agent`；
+1. 把角色文件夹（含 `description.txt` 与 `avatar.png`）放入**角色源目录**；
 2. 运行：
 
    ```bash
@@ -57,22 +56,45 @@ site/
 
 3. 脚本会按文件夹名生成/覆盖对应角色的介绍文档、更新日志、avatar，并重新生成侧边栏 `sidebar.ts`。
 
-> 角色归类规则在 `scripts/gen-char-pages.mjs` 顶部的 `SELF_MADE` 数组里：
-> 列入该数组的按"自建"归类，其余一律按"二创"归类。自建角色新增后把它加进数组即可。
+> **角色源目录**：默认位置在 `site/scripts/char-lib.mjs` 的 `AGENT_SRC` 中配置（各机器可能不同，不要写死在其他文档里）。如需临时改用其他目录，用环境变量覆盖：
+>
+> ```bash
+> AGENT_SRC=D:/path/to/agent pnpm -C site run gen:chars
+> ```
 
-## 更新已有角色后同步更新日志
+> **角色归类规则**：在 `site/scripts/char-lib.mjs` 的 `SELF_MADE` 数组里。列入该数组的按"自建"归类，其余一律按"二创"归类。自建角色新增后把它加进数组即可（导入脚本与同步脚本共用此配置）。
 
-角色内容（description / avatar / 素材）更新后，自动把变更记入对应角色的更新日志：
+## 使用 Skill 自动同步（推荐）
+
+项目自带 ZCode skill **`sync-changelog`**：更新角色后，用一句话即可自动完成"写更新日志 + 同步页面"，不用手动敲命令。
+
+**触发方式**（任选其一）：
+
+- 直接对 AI 助手说："**更新了角色 / 角色 X 更新了 / 换了头像 / 素材改了 / 同步日志**"（中英文均可）
+- 或输入斜杠命令：`/sync-changelog`
+
+**它会自动执行**：
+
+1. 停止 dev server（避免 Windows 下目录被占用）；
+2. 运行 `pnpm -C site run sync:changelog` —— 对比文件快照，检测"哪个角色、哪些文件"变了，向对应角色的 `changelog.md` 追加带日期的条目；
+3. 把变更摘要展示给你确认；
+4. 运行 `pnpm -C site run gen:chars` —— 重新同步介绍文档、avatar 与侧边栏；
+5. 重启 dev server，并提醒是否需要提交 git。
+
+**说明**：
+
+- 首次运行只建立基线快照（`site/scripts/sync-state.json`，已 gitignore），不写日志，属正常现象；
+- 新角色不会自动写日志（由 `gen:chars` 生成页面时写入"导入旧版资源"首条）；
+- 同日重复同步会自动去重，不会产生重复条目。
+
+**Skill 位置**：`.agents/skills/sync-changelog/SKILL.md`（流程说明），逻辑脚本：`site/scripts/sync-changelog.mjs`。
+
+## 手动同步更新日志（不使用 Skill 时）
 
 ```bash
 pnpm -C site run sync:changelog   # 检测变更并追加 changelog.md（先停 dev server）
 pnpm -C site run gen:chars        # 重新同步页面内容与侧边栏
 ```
-
-- 首次运行只建立基线快照（`scripts/sync-state.json`，已 gitignore），不写日志；
-- 之后每次运行对比快照，检测"哪个角色、哪些文件"变了，自动追加带日期的条目（同日去重）；
-- 新角色不会写日志（由 `gen:chars` 生成时写入"导入旧版资源"首条）；
-- 也可以用 ZCode skill：`/sync-changelog`（说"更新了角色X，同步日志"即可触发）。
 
 ## 手动维护
 

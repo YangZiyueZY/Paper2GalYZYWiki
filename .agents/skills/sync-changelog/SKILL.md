@@ -1,6 +1,6 @@
 ---
 name: sync-changelog
-description: 角色更新后同步更新文档站更新日志。当用户说"更新了角色""角色X更新了/改了/换头像了""同步更新日志""同步日志""角色资源改了"等（英文：character updated / character changed / sync changelog / update character log）时使用。检测角色源目录（AI Work/Paper2Gal/Agent）中角色文件的变更，把"更新设定/头像/素材"等条目追加到站点对应角色的 changelog.md，并重新生成角色页面。
+description: 角色更新后同步更新文档站更新日志。当用户说"更新了角色""角色X更新了/改了/换头像了""同步更新日志""同步日志""角色资源改了"等（英文：character updated / character changed / sync changelog / update character log）时使用。检测角色源目录（site/scripts/char-lib.mjs 中 AGENT_SRC 所指目录）中角色文件的变更，把"更新设定/头像/素材"等条目追加到站点对应角色的 changelog.md，并重新生成角色页面。
 ---
 
 # sync-changelog —— 角色更新后同步更新日志
@@ -9,7 +9,7 @@ Paper2GalYZYWiki 角色文档站的"更新日志同步"工作流。角色内容�
 
 ## 背景（先读，理解为什么这么做）
 
-- **角色源目录**（内容权威）：`E:\BaiduNetdiskDownload666\AI Work\Paper2Gal\Agent\<角色文件夹>/`，内含 `description.txt`（角色设定）、`avatar.png`（头像）、`prompt.txt`、`studio.txt`、表情/CG 图、语音等
+- **角色源目录**（内容权威）：位置配置在 `site/scripts/char-lib.mjs` 的 `AGENT_SRC`（各机器可能不同，运行时以该文件为准；如需临时覆盖用环境变量 `AGENT_SRC`）。目录内含 `<角色文件夹>/`：`description.txt`（角色设定）、`avatar.png`（头像）、`prompt.txt`、`studio.txt`、表情/CG 图、语音等
 - **站点**：`p2gyzywki/site/`，每个角色在 `site/pages/<zijian|erchuang>/<英文名>/` 下有两个文档：
   - `index.md` —— 角色介绍（description 内容 + avatar 图）
   - `changelog.md` —— 更新日志（格式：`## YYYY-MM-DD` + `- 条目`）
@@ -28,9 +28,8 @@ Paper2GalYZYWiki 角色文档站的"更新日志同步"工作流。角色内容�
    ```
    后台任务先 TaskStop 再补 taskkill，双保险。
 
-2. **运行同步脚本**：
+2. **运行同步脚本**（在项目根目录执行，即包含 `site/` 与 `packages/` 的目录，也是本 skill 所在仓库）：
    ```bash
-   cd E:\BaiduNetdiskDownload666\Code\Trea\Paper2GalYZYWiki\p2gyzywki
    pnpm -C site run sync:changelog
    ```
    输出含义：
