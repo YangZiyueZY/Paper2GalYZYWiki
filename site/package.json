@@ -8,6 +8,7 @@
     "dev": "valaxy .",
     "dev:debug": "valaxy . --log debug",
     "build": "pnpm run build:ssg",
+    "build:site": "pnpm run build:ssg",
     "build:spa": "valaxy build",
     "build:ssg": "valaxy build --ssg --log=info",
     "rss": "valaxy rss",

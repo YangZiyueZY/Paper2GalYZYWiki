@@ -3,6 +3,12 @@ packages:
   - packages/*
   - packages/@valaxyjs/*
 
+# pnpm 10 blocks dependency postinstall by default; these are required at build time
+onlyBuiltDependencies:
+  - esbuild
+  - vue-demi
+  - '@parcel/watcher'
+
 catalog:
   '@antfu/install-pkg': ^1.1.0
   '@antfu/utils': ^9.3.0
