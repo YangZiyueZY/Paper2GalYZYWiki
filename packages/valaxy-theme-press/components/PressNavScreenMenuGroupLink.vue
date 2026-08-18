@@ -1,0 +1,36 @@
+<script lang="ts" setup>
+import { inject } from 'vue'
+
+import { useI18n } from 'vue-i18n'
+
+defineProps<{
+  text: string
+  link: string
+}>()
+
+const closeScreen = inject('close-screen') as () => void
+
+const { t } = useI18n()
+</script>
+
+<template>
+  <AppLink class="pr-nav-screen-menu-group-link" :to="link" @click="closeScreen">
+    {{ t(text) }}
+  </AppLink>
+</template>
+
+<style scoped>
+.pr-nav-screen-menu-group-link {
+  display: block;
+  margin-left: 12px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--pr-c-text-1);
+  transition: color var(--va-transition-duration);
+}
+
+.pr-nav-screen-menu-group-link:hover {
+  color: var(--pr-c-brand);
+}
+</style>

@@ -1,0 +1,68 @@
+import type { EditableTreeNode } from 'vue-router/unplugin'
+import type { SiteConfig } from '../../types'
+
+export type HookResult = Promise<void> | void
+
+export interface MdAfterRenderContext {
+  route: EditableTreeNode
+  data: Readonly<Record<string, any>>
+  /**
+   * The final excerpt stored in `route.meta.excerpt`.
+   * - For `<!-- more -->` or auto-generated excerpts: rendered according to `excerpt_type` (HTML/text/md).
+   * - For manual frontmatter `excerpt`: used as-is (raw string, `excerpt_type` does not apply).
+   * - Empty string if no excerpt is available.
+   */
+  excerpt: string
+  /**
+   * Raw markdown content (without frontmatter) from gray-matter.
+   */
+  content: string
+  path: string
+  /**
+   * Render Markdown with the same configured renderer and resolved Vite base
+   * used by route processing.
+   */
+  renderMarkdown: (source: string, env?: Record<string, unknown>) => Promise<string>
+}
+
+export interface ValaxyHooks {
+  'options:resolved': () => HookResult
+  'config:init': () => HookResult
+  /**
+   * @see valaxy/node/plugins/vueRouter.ts extendRoute
+   */
+  'vue-router:extendRoute': (route: EditableTreeNode) => HookResult
+  'vue-router:beforeWriteFiles': (root: EditableTreeNode) => HookResult
+
+  /**
+   * Called after a markdown page has been loaded and its frontmatter/excerpt resolved.
+   * Fires for all `.md` routes (posts, pages, collections, etc.).
+   * Provides access to the route, raw markdown content, resolved excerpt, frontmatter data,
+   * file path, and the configured Markdown renderer.
+   * Useful for addons that need to inspect or extend page metadata (e.g., auto-generating excerpts).
+   * @see valaxy/node/plugins/vueRouter.ts extendRoute
+   */
+  'md:afterRender': (ctx: MdAfterRenderContext) => HookResult
+
+  'build:before': () => HookResult
+  'build:after': () => HookResult
+
+  /**
+   * Called to compute statistics (word count, reading time) for a markdown route.
+   * Default implementation uses `presetStatistics`; addons/themes can hook to override.
+   */
+  'statistics': (ctx: { route: EditableTreeNode, options: SiteConfig['statistics'] }) => HookResult
+
+  /**
+   * @experimental
+   * Called before content loaders start fetching.
+   * @see https://github.com/YunYouJun/valaxy/issues/294
+   */
+  'content:before-load': () => HookResult
+  /**
+   * @experimental
+   * Called after all content loaders have finished and files are written to cache.
+   * @see https://github.com/YunYouJun/valaxy/issues/294
+   */
+  'content:loaded': () => HookResult
+}

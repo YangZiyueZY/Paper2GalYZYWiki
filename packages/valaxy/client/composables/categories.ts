@@ -1,0 +1,124 @@
+import type { MaybeRef } from 'vue'
+import type { Post } from '../../types'
+import type { CategoryList } from './category-utils'
+import { computed, unref } from 'vue'
+import { useSiteStore } from '../stores'
+
+export type { BaseCategory, Categories, Category, CategoryList } from './category-utils'
+export { isCategoryList, removeItemFromCategory } from './category-utils'
+
+/**
+ * get categories from posts
+ * category: A/B/C
+ * {
+ *  name: 'A',
+ *  total: 1,
+ *  children: [
+ *    {
+ *      name: 'B'
+ *      total: 1,
+ *      children: [{ name: 'C', total: 1, children: [{ title: '' }] }]
+ *    }
+ *  ]
+ * }
+ */
+export function useCategories(category?: MaybeRef<string>, posts: Post[] = []) {
+  return computed(() => {
+    const categories = unref(category)
+
+    if (!posts.length) {
+      const site = useSiteStore()
+      posts = site.postList
+    }
+
+    const categoryList: CategoryList = {
+      name: 'All',
+      total: posts.length,
+      children: new Map([
+        ['Uncategorized', { name: 'Uncategorized', total: 0, children: new Map() }],
+      ]),
+    }
+
+    const uncategorized = categoryList.children.get('Uncategorized')!
+
+    posts.forEach((post: Post) => {
+      if (post.categories) {
+        if (Array.isArray(post.categories)) {
+          const len = post.categories.length
+
+          let curCategoryList: CategoryList = categoryList
+          let parentCategory: CategoryList = curCategoryList
+
+          post.categories.forEach((categoryName, i) => {
+            // console.log(parentCategory, curCategoryList.children, 'post', categoryName)
+            curCategoryList.total += 1
+            curCategoryList = curCategoryList.children.get(categoryName) as CategoryList
+
+            if (!curCategoryList) {
+              curCategoryList = {
+                name: categoryName,
+                total: 0,
+                children: new Map(),
+              }
+              parentCategory.children.set(categoryName, curCategoryList)
+            }
+
+            if (i === len - 1) {
+              curCategoryList.children.set(post.path!, post)
+              curCategoryList.total += 1
+            }
+
+            parentCategory = curCategoryList
+          })
+        }
+        else {
+          // for string
+          const categoryName = post.categories
+          const curCategory = categoryList.children.get(categoryName)
+          if (curCategory) {
+            curCategory.total += 1
+            curCategory.children.set(post.path!, post)
+          }
+          else {
+            categoryList.children.set(categoryName, {
+              name: categoryName,
+              total: 1,
+              children: new Map([
+                [post.path!, post],
+              ]),
+            })
+          }
+        }
+      }
+      else {
+        uncategorized.total += 1
+        uncategorized.children.set(post.path!, post)
+      }
+    })
+
+    // `top` had been sorted in routes
+
+    // clear uncategorized
+    if (uncategorized!.total === 0)
+      categoryList.children.delete('Uncategorized')
+
+    if (!categories) {
+      return categoryList
+    }
+    else {
+      let curCategoryList = categoryList
+      const categoryArr = categories.split('/')
+      for (const categoryName of categoryArr) {
+        const tempCList = curCategoryList.children.get(categoryName)
+        if (tempCList && tempCList.children) {
+          curCategoryList = tempCList as CategoryList
+        }
+        else {
+          console.warn(`Do not have category: ${category}`)
+          return categoryList
+        }
+      }
+      return curCategoryList
+    }
+  })
+}

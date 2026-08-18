@@ -1,0 +1,146 @@
+import type { InlineConfig, LogLevel } from 'vite'
+import type { Argv } from 'yargs'
+import type { ValaxyModule } from '../modules'
+import path from 'node:path'
+import process from 'node:process'
+import { consola } from 'consola'
+
+import { mergeConfig } from 'vite'
+import { createValaxyNode } from '../app'
+import { build, postProcessForSSG, ssgBuild } from '../build'
+
+import { mergeViteConfigs } from '../common'
+import { callHookWithLog } from '../logger'
+import { setupModules } from '../modules'
+import { contentModule } from '../modules/content'
+import { fuseModule } from '../modules/fuse'
+// cspell:word llms
+import { llmsModule } from '../modules/llms'
+import { rssModule } from '../modules/rss'
+import { validateTaxonomyI18n } from '../modules/taxonomy-i18n'
+import { resolveOptions } from '../options'
+import { isPagesDirExist, setEnvProd, setTimezone } from '../utils/env'
+import { commonOptions } from './options'
+import { printInfo } from './utils/cli'
+
+/**
+ * valaxy build
+ */
+export async function execBuild({ ssg, root, output, log }: { ssg: boolean, root: string, output: string, log: string }) {
+  setEnvProd()
+
+  if (!(await isPagesDirExist(root)))
+    process.exit(0)
+
+  const userRoot = path.resolve(root)
+  const options = await resolveOptions({ userRoot }, 'build')
+  setTimezone(options.config.siteConfig.timezone)
+  printInfo(options)
+
+  const valaxyApp = createValaxyNode(options)
+  // GLOBAL_STATE.valaxyApp = valaxyApp
+
+  // resolve options and create valaxy app
+  await callHookWithLog('options:resolved', valaxyApp)
+
+  const modules: ValaxyModule[] = []
+  // Content loaders must run first so CMS pages are available to downstream modules
+  if (options.config.loaders?.length)
+    modules.push(contentModule)
+  if (options.config.siteConfig.search.provider === 'fuse')
+    modules.push(fuseModule)
+  if (options.config.modules.rss.enable)
+    modules.push(rssModule)
+  if (options.config.siteConfig.llms.enable)
+    modules.push(llmsModule)
+
+  // setup modules
+  setupModules(
+    valaxyApp,
+    modules,
+  )
+
+  const valaxyViteConfig: InlineConfig = mergeConfig(await mergeViteConfigs(options, 'build'), options.config.vite || {})
+  const viteConfig: InlineConfig = mergeConfig(
+    valaxyViteConfig,
+    {
+      // avoid load userRoot/vite.config.ts repeatedly
+      configFile: path.resolve(options.clientRoot, 'vite.config.ts'),
+      build: {
+        // make out dir empty, https://vitejs.dev/config/#build-emptyoutdir
+        emptyOutDir: true,
+        outDir: path.resolve(options.userRoot, output),
+      },
+      logLevel: log as LogLevel,
+
+    } as InlineConfig,
+  )
+  // init config
+  await callHookWithLog('config:init', valaxyApp)
+
+  // before build
+  await callHookWithLog('build:before', valaxyApp)
+  await validateTaxonomyI18n(options)
+
+  consola.box('🌠 Start building...')
+  try {
+    if (ssg) {
+      consola.info('use valaxy SSG engine to build...')
+      try {
+        const userSsgOptions = (viteConfig as any).ssgOptions || {}
+        delete (viteConfig as any).ssgOptions
+        await ssgBuild(valaxyApp, viteConfig, userSsgOptions)
+        await postProcessForSSG(options)
+      }
+      catch (e) {
+        consola.error('[valaxy-ssg] An internal error occurred.')
+        console.log(e)
+      }
+    }
+    else {
+      consola.info('use vite do spa build...')
+      await build(valaxyApp, viteConfig)
+    }
+  }
+  catch (e) {
+    console.log(e)
+  }
+  finally {
+  // await fs.unlink(indexPath)
+    // await fs.copyFile(templatePath, indexPath)
+
+    // after build
+    await callHookWithLog('build:after', valaxyApp)
+  }
+}
+
+export function registerBuildCommand(cli: Argv) {
+  cli.command(
+    'build [root]',
+    'build your blog to static content',
+    args => commonOptions(args)
+      .option('ssg', {
+        alias: 's',
+        type: 'boolean',
+        default: false,
+        describe: 'static site generate',
+      })
+      .option('output', {
+        alias: 'o',
+        type: 'string',
+        default: 'dist',
+        describe: 'output dir',
+      })
+      .option('log', {
+        default: 'warn',
+        type: 'string',
+        choices: ['error', 'warn', 'info', 'silent'],
+        describe: 'log level',
+      })
+      .strict()
+      .help(),
+    async ({ ssg, root, output, log }) => {
+      await execBuild({ ssg, root, output, log })
+    },
+  )
+}

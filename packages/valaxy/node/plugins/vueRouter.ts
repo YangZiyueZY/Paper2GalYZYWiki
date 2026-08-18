@@ -1,0 +1,290 @@
+import type { MarkdownItAsync } from 'markdown-it-async'
+import type { ExcerptType, Page, Post } from '../../types'
+import type { ValaxyNode } from '../types'
+import type { MarkdownBase } from './markdown/base'
+
+import fs from 'fs-extra'
+
+import matter from 'gray-matter'
+import { convert } from 'html-to-text'
+import { resolve } from 'pathe'
+import VueRouter from 'vue-router/vite'
+import { vLogger } from '../logger'
+import { countPerformanceTime } from '../utils/performance'
+import { createMarkdownRenderer } from './markdown'
+
+import { matterOptions } from './markdown/transform/matter'
+// Import vue-router RouteMeta augmentation
+import '../../types/vue-router.d'
+
+/**
+ * get excerpt by type
+ * @param excerpt
+ * @param type
+ */
+export async function getExcerptByType(excerpt = '', type: ExcerptType = 'html', mdIt: MarkdownItAsync) {
+  switch (type) {
+    case 'ai':
+    case 'md':
+      return excerpt
+    case 'html':
+      return mdIt.renderAsync(excerpt)
+    case 'text':
+      return convert(await mdIt.renderAsync(excerpt))
+    default:
+      return excerpt
+  }
+}
+
+/**
+ * Generate auto excerpt markdown from raw content by stripping headings and truncating.
+ * Returns raw markdown text (not rendered) so it can be passed through `getExcerptByType`.
+ */
+export function generateAutoExcerptMd(content: string, length: number): string {
+  // remove heading markers (# Title)
+  const cleaned = content.replace(/^#+\s[^\n]*/gm, '').trim()
+  if (!cleaned)
+    return ''
+
+  return cleaned.length > length ? `${cleaned.slice(0, length)}...` : cleaned
+}
+
+/**
+ * @see https://router.vuejs.org/file-based-routing/
+ * @param valaxyApp
+ */
+export async function createRouterPlugin(valaxyApp: ValaxyNode, base?: MarkdownBase) {
+  const { options } = valaxyApp
+  const { roots, config: valaxyConfig } = options
+
+  const mdIt = await createMarkdownRenderer(options, base)
+
+  // Cache the deep-cloned default frontmatter to avoid re-cloning on every route.
+  // Only re-clone when the reference changes (e.g. HMR config reload).
+  let _lastFrontmatterRef = valaxyConfig.siteConfig.frontmatter
+  let _cachedFrontmatter = structuredClone(valaxyConfig.siteConfig.frontmatter)
+
+  return VueRouter({
+    extensions: ['.vue', '.md'],
+    routesFolder: [
+      ...roots.map(root => `${root}/pages`),
+      ...(valaxyConfig.loaders?.length
+        ? [resolve(options.tempDir, 'content', 'pages')]
+        : []),
+    ],
+    dts: resolve(options.tempDir, 'route-map.d.ts'),
+
+    // Disable file watching during build to prevent chokidar from opening
+    // too many file descriptors (EMFILE) in large monorepos.
+    // vue-router defaults to `watch: !process.env.CI`, which is true locally.
+    watch: options.mode !== 'build',
+
+    ...valaxyConfig.router,
+
+    /**
+     * @experimental See https://github.com/posva/unplugin-vue-router/issues/43 (now part of vue-router)
+     * we need get frontmatter before route, so write it in extendRoute
+     */
+    async extendRoute(route) {
+      // Re-clone only when the frontmatter config reference changes (e.g. HMR)
+      if (valaxyConfig.siteConfig.frontmatter !== _lastFrontmatterRef) {
+        _lastFrontmatterRef = valaxyConfig.siteConfig.frontmatter
+        _cachedFrontmatter = structuredClone(valaxyConfig.siteConfig.frontmatter)
+      }
+      const defaultFrontmatter = structuredClone(_cachedFrontmatter)
+      if (route.meta && route.meta.frontmatter) {
+        // reset frontmatter, extendRoute will be trigger when save md file
+        const { frontmatter: _, otherMeta } = route.meta
+        route.meta = otherMeta as typeof route.meta
+      }
+      /**
+       * merge deeply
+       * 添加全局默认的 frontmatter
+       */
+      route.addToMeta({
+        frontmatter: defaultFrontmatter,
+      })
+
+      // encode for chinese filename dev and build same
+      // const encodedPath = encodeURI(route.path)
+      // if (encodedPath !== route.path)
+      //   route.path = encodedPath
+
+      // if (!route.meta.frontmatter) {
+      //   route.addToMeta({
+      //     frontmatter: {},
+      //   })
+      // }
+
+      // add default layout for home, can be overrode
+      if (route.fullPath === '/' || route.fullPath === '/page' || route.fullPath.startsWith('/page/')) {
+        route.addToMeta({
+          layout: 'home',
+        })
+      }
+
+      // page is post
+      if (['/posts', '/posts/'].includes(route.fullPath)) {
+        // add posts layout
+        route.addToMeta({
+          layout: 'posts',
+        })
+      }
+      else if (route.fullPath.startsWith('/posts/')) {
+        if (route.children.length === 0) {
+          route.addToMeta({
+            layout: 'post',
+          })
+        }
+      }
+      else if (route.fullPath.startsWith('/collections/')) {
+        if (route.fullPath.split('/').length > 3) {
+          // add collection layout
+          route.addToMeta({
+            layout: 'collection',
+          })
+        }
+      }
+
+      // find page path
+      const path = route.components.get('default') || ''
+      if (path.endsWith('.md')) {
+        const md = await fs.readFile(path, 'utf-8')
+        const { data, excerpt, content } = matter(md, matterOptions)
+        const mdFm = data as (Page | Post)
+
+        const lastUpdated = valaxyConfig.siteConfig.lastUpdated
+
+        // do not export password
+        delete mdFm.password
+        if (mdFm.gallery_password) {
+          delete mdFm.gallery_password
+          delete mdFm.photos
+        }
+
+        if (!mdFm.date)
+          mdFm.date = (await fs.stat(path)).mtime
+
+        // format
+        if (lastUpdated) {
+          if (!mdFm.updated)
+            mdFm.updated = (await fs.stat(path)).ctime
+        }
+
+        if (mdFm.from) {
+          if (Array.isArray(mdFm.from)) {
+            mdFm.from.forEach((from) => {
+              options.redirects.push({
+                from,
+                to: route.fullPath,
+              })
+            })
+          }
+          else {
+            options.redirects.push({
+              from: mdFm.from,
+              to: route.fullPath,
+            })
+          }
+        }
+
+        // const keys = [
+        //   'title',
+        //   'categories',
+        //   'description',
+        //   'date',
+        //   'updated',
+        //   'excerpt_type',
+
+        //   'hero',
+        // ]
+        const excludeKeys = [
+          'albums',
+          'excerpt',
+          'girls',
+          'links',
+          'photos',
+          // @TODO defineBasicLoader for page
+          // Waiting for upstream API to stabilize
+          // https://github.com/YunYouJun/valaxy/issues/487
+          // 'projects',
+        ]
+        const routerFM: Post = {
+          ...mdFm,
+          // Normalize tags: ensure always an array for consistent consumption
+          tags: typeof mdFm.tags === 'string' ? [mdFm.tags] : mdFm.tags,
+          // set default updated to date if not present
+          updated: mdFm.updated ?? mdFm.date,
+        }
+        excludeKeys.forEach((key) => {
+          delete routerFM[key]
+        })
+        /**
+         * set route meta
+         * 必要的 frontmatter（草稿、首页、摘要、分页、分类、标签等地方使用）
+         *
+         * 不会与 vue-router loader 自动合并
+         */
+        let resolvedExcerpt = mdFm.excerpt || (excerpt ? await getExcerptByType(excerpt, mdFm.excerpt_type || defaultFrontmatter.excerpt_type || valaxyConfig.siteConfig.excerpt.type, mdIt) : '')
+
+        // auto excerpt: generate from content if no manual excerpt
+        if (!resolvedExcerpt && valaxyConfig.siteConfig.excerpt.auto) {
+          const autoExcerptLength = valaxyConfig.siteConfig.excerpt.length
+          const excerptType = mdFm.excerpt_type || defaultFrontmatter.excerpt_type || valaxyConfig.siteConfig.excerpt.type
+          const autoExcerptMd = generateAutoExcerptMd(content, autoExcerptLength)
+          resolvedExcerpt = await getExcerptByType(autoExcerptMd, excerptType, mdIt)
+        }
+
+        route.addToMeta({
+          frontmatter: routerFM,
+          excerpt: resolvedExcerpt,
+        })
+
+        // set layout
+        if (data.layout) {
+          route.addToMeta({
+            layout: data.layout,
+          })
+        }
+
+        if (valaxyConfig.siteConfig.statistics.enable) {
+          await valaxyApp.hooks.callHook('statistics', {
+            options: valaxyConfig.siteConfig.statistics,
+            route,
+          })
+        }
+
+        const ctx: Parameters<Required<typeof valaxyConfig>['extendMd']>[0] = {
+          route,
+          data: data as Readonly<Record<string, any>>,
+          excerpt,
+          content,
+          path,
+        }
+        valaxyConfig.extendMd?.(ctx)
+
+        // read excerpt from route.meta in case extendMd modified it
+        const finalExcerpt = route.meta.excerpt ?? resolvedExcerpt
+
+        await valaxyApp.hooks.callHook('md:afterRender', {
+          route,
+          data: data as Readonly<Record<string, any>>,
+          excerpt: finalExcerpt,
+          content,
+          path,
+          renderMarkdown: (source, env) => mdIt.renderAsync(source, env),
+        })
+      }
+
+      const extendRouteTimer = countPerformanceTime()
+      await valaxyApp.hooks.callHook('vue-router:extendRoute', route)
+      const extendDuration = extendRouteTimer()
+      vLogger.debug(`  extendRoute(${route.fullPath}): ${extendDuration}`)
+      return valaxyConfig.router?.extendRoute?.(route)
+    },
+
+    async beforeWriteFiles(root) {
+      await valaxyApp.hooks.callHook('vue-router:beforeWriteFiles', root)
+    },
+  })
+}

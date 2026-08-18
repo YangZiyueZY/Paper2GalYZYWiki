@@ -1,0 +1,196 @@
+<script lang="ts" setup>
+import type { AlgoliaSearchOptions } from '../types/algolia'
+import { onKeyStroke } from '@vueuse/core'
+import { useAddonConfig, useSiteConfig } from 'valaxy'
+import { computed, defineAsyncComponent, hydrateOnInteraction, onMounted, ref } from 'vue'
+import PressNavBarAskAiButton from './PressNavBarAskAiButton.vue'
+import PressNavBarSearchButton from './PressNavBarSearchButton.vue'
+
+const siteConfig = useSiteConfig()
+
+const isAlgolia = computed(() => siteConfig.value.search.provider === 'algolia')
+const isFuse = computed(() => siteConfig.value.search.provider === 'fuse')
+const isLocal = computed(() => siteConfig.value.search.provider === 'local')
+
+// Whether to show the Ask AI button (requires askAi config in addon-algolia)
+const algoliaAddonConfig = useAddonConfig<AlgoliaSearchOptions>('valaxy-addon-algolia')
+const showAskAi = computed(() => {
+  if (!isAlgolia.value)
+    return false
+  const askAi = algoliaAddonConfig.value?.options?.askAi
+  return !!askAi
+})
+
+const PressAlgoliaSearch = isAlgolia.value
+  ? defineAsyncComponent(() => import('./PressAlgoliaSearch.vue'))
+  : () => null
+
+/**
+ * Use lazy hydration (Vue 3.5+) to avoid hydration mismatch.
+ *
+ * `defineAsyncComponent` without a hydration strategy causes mismatch because
+ * the SSR bundle resolves async components synchronously (real DOM), while the
+ * client hasn't loaded the chunk yet during hydration (comment placeholder).
+ *
+ * `hydrateOnInteraction` keeps code-splitting benefits and defers hydration
+ * until the user actually interacts with the search button.
+ */
+const PressFuseSearch = defineAsyncComponent({
+  loader: () => import('./PressFuseSearch.vue'),
+  hydrate: hydrateOnInteraction(['click', 'focusin']),
+})
+
+const PressLocalSearch = defineAsyncComponent({
+  loader: () => import('./PressLocalSearch.vue'),
+  hydrate: hydrateOnInteraction(['click', 'focusin']),
+})
+
+// #region Algolia lazy loading
+
+type OpenTarget = 'search' | 'askAi' | 'toggleAskAi'
+interface OpenRequest { target: OpenTarget, nonce: number }
+const openRequest = ref<OpenRequest | null>(null)
+let openNonce = 0
+
+const loaded = ref(false)
+const actuallyLoaded = ref(false)
+
+// Preconnect to Algolia DSN on idle
+onMounted(() => {
+  if (!isAlgolia.value)
+    return
+
+  const id = 'PressAlgoliaPreconnect'
+  if (document.getElementById(id))
+    return
+
+  const appId = algoliaAddonConfig.value?.options?.appId
+  if (!appId)
+    return
+
+  const rIC = window.requestIdleCallback || setTimeout
+  rIC(() => {
+    const preconnect = document.createElement('link')
+    preconnect.id = id
+    preconnect.rel = 'preconnect'
+    preconnect.href = `https://${appId}-dsn.algolia.net`
+    preconnect.crossOrigin = ''
+    document.head.appendChild(preconnect)
+  })
+})
+
+// Keyboard shortcuts for Algolia
+if (isAlgolia.value) {
+  onKeyStroke('k', (event) => {
+    if (event.ctrlKey || event.metaKey) {
+      event.preventDefault()
+      loadAndOpen('search')
+    }
+  })
+
+  onKeyStroke('i', (event) => {
+    if ((event.ctrlKey || event.metaKey) && showAskAi.value) {
+      event.preventDefault()
+      loadAndOpen('askAi')
+    }
+  })
+
+  onKeyStroke('/', (event) => {
+    if (!isEditingContent(event)) {
+      event.preventDefault()
+      loadAndOpen('search')
+    }
+  })
+}
+
+function loadAndOpen(target: OpenTarget) {
+  if (!loaded.value)
+    loaded.value = true
+
+  openRequest.value = { target, nonce: ++openNonce }
+}
+
+// #endregion
+
+// Local search keyboard shortcut
+const localSearchRef = ref()
+if (isLocal.value) {
+  onKeyStroke('k', (event) => {
+    if (event.ctrlKey || event.metaKey) {
+      event.preventDefault()
+      localSearchRef.value?.toggleSearch()
+    }
+  })
+}
+
+function isEditingContent(event: KeyboardEvent): boolean {
+  const element = event.target as HTMLElement
+  const tagName = element.tagName
+
+  return (
+    element.isContentEditable
+    || tagName === 'INPUT'
+    || tagName === 'SELECT'
+    || tagName === 'TEXTAREA'
+  )
+}
+</script>
+
+<template>
+  <div v-if="siteConfig.search.enable" class="VPNavBarSearch">
+    <template v-if="isAlgolia">
+      <PressNavBarSearchButton
+        aria-keyshortcuts="/ control+k meta+k"
+        @click="loadAndOpen('search')"
+      />
+      <PressNavBarAskAiButton
+        v-if="showAskAi"
+        aria-keyshortcuts="control+i meta+i"
+        @click="actuallyLoaded ? loadAndOpen('toggleAskAi') : loadAndOpen('askAi')"
+      />
+      <ClientOnly>
+        <PressAlgoliaSearch
+          v-if="loaded"
+          :open-request="openRequest"
+          @vue:before-mount="actuallyLoaded = true"
+        />
+      </ClientOnly>
+    </template>
+    <template v-else-if="isFuse">
+      <PressFuseSearch />
+    </template>
+    <template v-else-if="isLocal">
+      <PressLocalSearch ref="localSearchRef" />
+    </template>
+  </div>
+</template>
+
+<style>
+/* stylelint-disable selector-class-pattern */
+.VPNavBarSearch {
+  display: flex;
+  align-items: center;
+}
+
+@media (width >= 768px) {
+  .VPNavBarSearch {
+    gap: 8px;
+    flex-grow: 1;
+    padding-left: 24px;
+  }
+}
+
+@media (width >= 960px) {
+  .VPNavBarSearch {
+    padding-left: 32px;
+  }
+}
+
+@media (768px <= width < 1280px) {
+  .VPNavBarSearch {
+    flex-grow: 0;
+    gap: 0;
+    padding-left: 8px;
+  }
+}
+</style>

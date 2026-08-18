@@ -1,0 +1,59 @@
+{
+  "name": "p2gyzywki",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.34.4",
+  "description": "Paper2GalYZYWiki —— 基于 Valaxy 的角色文档站，记录角色的 description 与更新说明。",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "pnpm run build:@valaxyjs/utils && pnpm run build:valaxy && pnpm run build:devtools",
+    "build:@valaxyjs/utils": "pnpm -C packages/@valaxyjs/utils run build",
+    "build:valaxy": "pnpm -C packages/valaxy run build",
+    "build:devtools": "pnpm -C packages/devtools run build",
+    "build:all": "pnpm -r --filter \"./packages/**\" run build",
+    "clean": "pnpm -r --filter \"./packages/**\" run clean",
+    "dev": "pnpm run dev:lib",
+    "dev:lib": "pnpm -C packages/valaxy run dev",
+    "dev:site": "pnpm -C site run dev",
+    "build:site": "pnpm -C site run build",
+    "cli:debug": "tsx packages/valaxy/node/cli/index.ts debug",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "dependencies": {
+    "@valaxyjs/devtools": "workspace:*",
+    "valaxy": "workspace:*",
+    "valaxy-theme-press": "workspace:*"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "catalog:build",
+    "@iconify-json/vscode-icons": "catalog:build",
+    "@types/debug": "catalog:",
+    "@types/fs-extra": "catalog:",
+    "@types/markdown-it-attrs": "catalog:",
+    "@types/markdown-it-container": "catalog:",
+    "@types/markdown-it-emoji": "catalog:",
+    "@types/node": "catalog:",
+    "@types/prompts": "catalog:",
+    "bumpp": "catalog:",
+    "cross-env": "catalog:",
+    "https-localhost": "catalog:",
+    "npm-run-all": "catalog:",
+    "prompts": "catalog:",
+    "rimraf": "catalog:",
+    "tsup": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:build",
+    "unbuild": "catalog:build",
+    "vue-tsc": "catalog:"
+  },
+  "resolutions": {
+    "chokidar": "5.0.0",
+    "semver": "7",
+    "vite": "catalog:build",
+    "vue": "catalog:frontend"
+  }
+}

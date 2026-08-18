@@ -1,0 +1,13 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Paper2GalYZYWiki",
+    "home_page_url": "https://example.com/",
+    "feed_url": "https://example.com/feed.json",
+    "description": "本文档是用于记录角色的description和更新说明。",
+    "icon": "https://example.com/logo.png",
+    "author": {
+        "name": "Paper2GalYZYWiki",
+        "url": "https://example.com"
+    },
+    "items": []
+}

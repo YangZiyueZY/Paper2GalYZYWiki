@@ -1,0 +1,78 @@
+{
+  "name": "@valaxyjs/devtools",
+  "type": "module",
+  "version": "1.0.0-rc.6",
+  "description": "DevTools for Valaxy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YunYouJun/valaxy.git",
+    "directory": "packages/devtools"
+  },
+  "keywords": [
+    "valaxy",
+    "devtools"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./rpc": "./rpc.d.ts",
+    "./client": "./dist/client",
+    "./*": "./*"
+  },
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "rpc.d.ts"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "rimraf dist && pnpm run build:client && npm run build:node",
+    "build:client": "vite build src/client",
+    "build:node": "unbuild",
+    "dev": "pnpm run stub && pnpm run dev:client",
+    "dev:client": "vite dev src/client --port 5001",
+    "watch:client": "vite build src/client --watch",
+    "stub": "unbuild --stub",
+    "prepublishOnly": "npm run build",
+    "release": "bumpp && pnpm publish"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "catalog:",
+    "axios": "catalog:",
+    "body-parser": "catalog:",
+    "cors": "catalog:",
+    "fs-extra": "catalog:",
+    "http-proxy-middleware": "catalog:",
+    "js-yaml": "catalog:",
+    "magicast": "catalog:",
+    "pathe": "catalog:",
+    "sirv": "catalog:"
+  },
+  "devDependencies": {
+    "@iconify-json/ri": "catalog:build",
+    "@intlify/unplugin-vue-i18n": "catalog:build",
+    "@types/body-parser": "catalog:",
+    "@types/splitpanes": "catalog:",
+    "@types/wicg-file-system-access": "catalog:",
+    "@unocss/reset": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "gray-matter": "catalog:",
+    "pinia": "catalog:",
+    "reka-ui": "catalog:frontend",
+    "splitpanes": "catalog:",
+    "typescript": "catalog:build",
+    "unbuild": "catalog:build",
+    "unocss": "catalog:",
+    "unplugin-vue-components": "catalog:",
+    "vite": "catalog:build",
+    "vite-plugin-vue-devtools": "catalog:",
+    "vue": "catalog:frontend",
+    "vue-i18n": "catalog:build",
+    "vue-router": "catalog:"
+  }
+}

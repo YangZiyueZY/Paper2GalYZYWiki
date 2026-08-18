@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "preserve",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "~/*": ["demo/yun/*"],
+      "@valaxyjs/devtools": ["packages/devtools/src/index.ts"],
+      "@valaxyjs/*": ["packages/@valaxyjs/*/src/index.ts"],
+      "valaxy": ["./packages/valaxy/index.ts"],
+      "valaxy/client/*": ["packages/valaxy/client/*"],
+      "@valaxyjs/client/*": ["packages/valaxy/client/*"],
+      "valaxy/package.json": ["packages/valaxy/package.json"],
+      "valaxy/types": ["packages/valaxy/types/index.ts"],
+      "valaxy-theme-yun/*": ["packages/valaxy-theme-yun/*"],
+      "valaxy-theme-yun": ["packages/valaxy-theme-yun/node/index.ts"],
+      "valaxy-addon-waline": ["packages/valaxy-addon-waline/client/index.ts"],
+      "valaxy-addon-twikoo": ["packages/valaxy-addon-twikoo/client/index.ts"]
+    },
+    "resolveJsonModule": true,
+    "types": [
+      "vitest",
+      "vite/client",
+      "valaxy/client",
+      "vite-plugin-vue-layouts-next/client",
+      "@intlify/unplugin-vue-i18n/messages",
+      "@types/wicg-file-system-access"
+    ],
+    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    // for type check
+    "./*.ts",
+    "./test/*.ts",
+    "./packages/**/*.d.ts",
+    "./packages/**/*.ts",
+    "./packages/**/*.vue"
+  ],
+  "exclude": ["**/dist/**", "node_modules", "cache"]
+}

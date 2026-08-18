@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "types": [
+      "@types/wicg-file-system-access",
+      "vite/client",
+      "valaxy/client"
+    ],
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "./src/client/route-map.d.ts",
+    "./src/**/*.ts",
+    "../valaxy/client/rpc.ts",
+    "../valaxy/client/rpc.ts"
+  ]
+}

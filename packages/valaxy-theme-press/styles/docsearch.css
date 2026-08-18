@@ -1,0 +1,106 @@
+@import '@docsearch/css/dist/style.css';
+@import '@docsearch/css/dist/sidepanel.css';
+
+/* stylelint-disable selector-class-pattern */
+
+/* Hide docsearch container by default, shown when JS initializes */
+#press-docsearch,
+#press-docsearch-sidepanel,
+.DocSearch-SidepanelButton {
+  display: none;
+}
+
+/* Override DocSearch CSS variables with Press theme variables */
+:root:root {
+  --docsearch-primary-color: var(--va-c-primary);
+  --docsearch-text-color: var(--va-c-text-1);
+  --docsearch-muted-color: var(--va-c-text-2);
+  --docsearch-container-background: rgb(150 150 150 / 0.7);
+  --docsearch-background-color: var(--va-c-bg-soft);
+  --docsearch-modal-background: var(--va-c-bg-soft);
+  --docsearch-modal-shadow: var(--va-shadow-3);
+  --docsearch-searchbox-background: var(--va-c-bg-alt);
+  --docsearch-searchbox-focus-background: transparent;
+  --docsearch-hit-background: var(--va-c-bg);
+  --docsearch-hit-color: var(--va-c-text-1);
+  --docsearch-hit-active-color: var(--va-c-white);
+  --docsearch-hit-shadow: none;
+  --docsearch-footer-background: var(--va-c-bg-alt);
+  --docsearch-footer-shadow: 0 -1px 0 0 var(--va-c-divider);
+  --docsearch-key-background: var(--va-c-code-bg, var(--va-c-bg-soft));
+  --docsearch-key-color: var(--va-c-text-2);
+  --docsearch-highlight-color: var(--docsearch-primary-color);
+  --docsearch-logo-color: #5468ff;
+  --docsearch-icon-color: var(--va-c-text-2);
+  --docsearch-secondary-text-color: var(--va-c-text-2);
+  --docsearch-focus-color: var(--va-c-primary);
+  --docsearch-subtle-color: var(--va-c-divider);
+  --docsearch-dropdown-menu-background: var(--va-c-bg);
+  --docsearch-soft-primary-color: var(--va-c-primary-soft, rgba(0, 61, 255, 0.1));
+  --docsearch-soft-muted-color: var(--va-c-bg-soft);
+  --docsearch-sidepanel-accent-muted: var(--va-c-text-3, var(--va-c-text-2));
+  --docsearch-sidepanel-text-base: var(--va-c-text-1);
+}
+
+:root.dark {
+  --docsearch-container-background: rgb(0 0 0 / 0.64);
+  --docsearch-modal-shadow: none;
+}
+
+/* DocSearch component tweaks */
+.DocSearch-Commands-Key {
+  padding: 4px;
+  border: 1px solid var(--docsearch-subtle-color);
+  border-radius: 4px;
+}
+
+.DocSearch-Hit a:focus-visible {
+  outline: 2px solid var(--docsearch-focus-color);
+}
+
+.DocSearch-Logo [class^='cls-'] {
+  fill: currentColor;
+}
+
+.DocSearch-Menu-content {
+  margin-top: -4px;
+  padding: 6px;
+  border: 1px solid var(--va-c-divider);
+  border-radius: 6px;
+  box-shadow: var(--va-shadow-2, 0 4px 12px rgba(0, 0, 0, 0.06));
+}
+
+.DocSearch-Menu-item {
+  border-radius: 4px;
+}
+
+.DocSearch-SearchBar + .DocSearch-Footer {
+  border-top-color: transparent;
+}
+
+.DocSearch-Title {
+  font-size: revert;
+  line-height: revert;
+}
+
+/* Sidepanel tweaks */
+.DocSearch-Sidepanel-Prompt--form {
+  border-color: var(--docsearch-subtle-color);
+  transition: border-color var(--va-transition-duration-fast);
+}
+
+.DocSearch-Sidepanel-Prompt--submit {
+  background-color: var(--docsearch-soft-primary-color);
+  color: var(--docsearch-primary-color);
+}
+
+.DocSearch-Sidepanel-Prompt--submit:hover {
+  background-color: var(--va-c-primary);
+  color: var(--va-c-white);
+}
+
+.DocSearch-Sidepanel-Prompt--submit:disabled,
+.DocSearch-Sidepanel-Prompt--submit[aria-disabled='true'] {
+  background-color: var(--docsearch-soft-muted-color);
+  color: var(--docsearch-muted-color);
+}

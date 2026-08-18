@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Paper2GalYZYWiki</title>
+        <link>https://example.com/</link>
+        <description>本文档是用于记录角色的description和更新说明。</description>
+        <lastBuildDate>Tue, 18 Aug 2026 05:01:04 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <image>
+            <title>Paper2GalYZYWiki</title>
+            <url>https://example.com/logo.png</url>
+            <link>https://example.com/</link>
+        </image>
+        <copyright>CC BY-NC-SA 4.0 2026 © Paper2GalYZYWiki</copyright>
+        <atom:link href="https://example.com/feed.xml" rel="self" type="application/rss+xml"/>
+    </channel>
+</rss>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://example.com/</id>
+    <title>Paper2GalYZYWiki</title>
+    <updated>2026-08-18T05:01:04.198Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <author>
+        <name>Paper2GalYZYWiki</name>
+        <email>i@valaxy.site</email>
+        <uri>https://example.com</uri>
+    </author>
+    <link rel="alternate" href="https://example.com/"/>
+    <link rel="self" href="https://example.com/atom.xml"/>
+    <subtitle>本文档是用于记录角色的description和更新说明。</subtitle>
+    <logo>https://example.com/logo.png</logo>
+    <icon>https://example.com/favicon.svg</icon>
+    <rights>CC BY-NC-SA 4.0 2026 © Paper2GalYZYWiki</rights>
+</feed>

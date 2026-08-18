@@ -1,0 +1,15 @@
+valaxy_theme_press: Valaxy 主题 Press
+
+theme:
+  outlineTitle: 页面导航
+  outlineButtonLabel: 目录
+  outlineAriaLabel: 当前页面目录
+  outlineTriggerLabel: 页面导航：第 {current} 节，共 {total} 节，已阅读 {progress}%
+  closeOutline: 关闭页面导航
+
+doc_footer:
+  prev: 上一页
+  next: 下一页
+
+tooltip:
+  edit_this_page: 编辑本页

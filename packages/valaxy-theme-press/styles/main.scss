@@ -1,0 +1,7 @@
+@use "./helper";
+@use "./markdown";
+
+.layout {
+  display: flex;
+  flex-direction: column;
+}

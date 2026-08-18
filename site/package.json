@@ -1,0 +1,24 @@
+{
+  "name": "p2gyzywki-site",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.34.4",
+  "description": "Paper2GalYZYWiki 文档站（记录角色的 description 与更新说明）",
+  "scripts": {
+    "dev": "valaxy .",
+    "dev:debug": "valaxy . --log debug",
+    "build": "pnpm run build:ssg",
+    "build:spa": "valaxy build",
+    "build:ssg": "valaxy build --ssg --log=info",
+    "rss": "valaxy rss",
+    "serve": "vite preview",
+    "new": "valaxy new",
+    "gen:chars": "node scripts/gen-char-pages.mjs"
+  },
+  "dependencies": {
+    "@iconify-json/carbon": "^1.2.9",
+    "@iconify-json/ri": "^1.2.5",
+    "valaxy": "link:../packages/valaxy",
+    "valaxy-theme-press": "link:../packages/valaxy-theme-press"
+  }
+}

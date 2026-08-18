@@ -1,0 +1,289 @@
+import type { Alias, AliasOptions, InlineConfig, Plugin } from 'vite'
+import type { ResolvedValaxyOptions } from '../types'
+import { dirname, join, resolve } from 'node:path'
+import { uniq } from '@antfu/utils'
+import { searchForWorkspaceRoot } from 'vite'
+import { escapeRegExp } from '../build/bundle'
+import { getIndexHtml } from '../common'
+import { isKatexPluginNeeded } from '../config/valaxy'
+import { isInstalledGlobally, resolveImportPath, toAtFS } from '../utils'
+
+/**
+ * dependencies used by client
+ */
+const clientDeps = [
+  // https://cn.vite.dev/guide/dep-pre-bundling.html#the-why
+  'dayjs',
+  'dayjs/locale/en',
+  'dayjs/locale/zh-cn',
+  'dayjs/plugin/relativeTime',
+  'dayjs/plugin/timezone',
+  'dayjs/plugin/utc',
+
+  '@unhead/schema-org/vue',
+  '@unhead/vue',
+
+  'defu',
+
+  'katex',
+  'nprogress',
+  'unocss',
+
+  // vue
+  'vue',
+  'vue-router',
+
+  'vue-i18n',
+  // dev
+  '@vue/devtools-api',
+
+  // will may be addons
+  'fuse.js',
+  'medium-zoom',
+  'vanilla-lazyload',
+
+  'valaxy > @vueuse/integrations/useFuse',
+]
+
+/**
+ * internal deps or esm deps do not need optimize
+ */
+const EXCLUDE = [
+  '@docsearch/css',
+  '@docsearch/js',
+
+  // exclude for @waline/client/dist/component(use @vueuse/core) import
+  '@vueuse/core',
+  '@vueuse/shared',
+  '@unocss/reset',
+  'unocss',
+
+  // internal
+  'valaxy',
+  'virtual:valaxy-addons:empty',
+  '@valaxyjs/devtools',
+
+  '/@valaxyjs/config',
+  '/@valaxyjs/context',
+
+  '/@valaxyjs/addons',
+  '/@valaxyjs/locales',
+  '/@valaxyjs/styles',
+
+  /**
+   * vue-router data loaders
+   * exclude to avoid vite optimize, will make Symbol('loaderEntries') valid
+   */
+  'vue-router/experimental',
+]
+
+export function createConfigPlugin(options: ResolvedValaxyOptions): Plugin {
+  // const themeDeps = Object.keys((options.config.themeConfig.pkg.dependencies || {}))
+  const addonNames = options.addons.map(a => a.name)
+  const addonDeps = options.addons.map(i => Object.keys(i.pkg.dependencies || {})).flat()
+  const cdnModuleNames = options.mode === 'build'
+    ? (options.config.cdn?.modules || []).map(m => m.name)
+    : []
+
+  const katexEnabled = isKatexPluginNeeded(options.config)
+
+  const depsToInclude = [...clientDeps]
+  if (!katexEnabled) {
+    const katexIdx = depsToInclude.indexOf('katex')
+    if (katexIdx !== -1)
+      depsToInclude.splice(katexIdx, 1)
+  }
+
+  const includedDeps = uniq([
+    ...depsToInclude,
+    // remove theme deps, for primevue parse entry
+    // ...themeDeps,
+    // addon deps
+    ...addonDeps,
+  ]).filter(i => !EXCLUDE.includes(i) && !cdnModuleNames.includes(i))
+
+  return {
+    name: 'valaxy:site',
+    // before devtools
+    enforce: 'pre',
+    async config(config) {
+      const fsAllow = [
+        searchForWorkspaceRoot(options.clientRoot),
+        searchForWorkspaceRoot(options.themeRoot),
+        searchForWorkspaceRoot(options.userRoot),
+      ]
+
+      if (katexEnabled) {
+        fsAllow.push(dirname(await resolveImportPath('katex/package.json', true)))
+      }
+
+      // Merge define: valaxy defaults first, then let user config override
+      const valaxyDefine = getDefine(options)
+      const userDefine = config.define || {}
+      const mergedDefine = { ...valaxyDefine, ...userDefine }
+
+      const injection: InlineConfig = {
+        // root: options.userRoot,
+        // can not transform valaxy/client/*.ts when use userRoot
+        root: options.clientRoot,
+        // cacheDir: join(options.userRoot, 'node_modules/.vite'),
+        cacheDir: join(options.userRoot, 'node_modules/.valaxy/cache'),
+        publicDir: join(options.userRoot, 'public'),
+
+        define: mergedDefine,
+        resolve: {
+          alias: await getAlias(options),
+          // Dedupe the shared singletons that valaxy owns (it calls `createApp`,
+          // `createRouter`, `createPinia`, `createI18n`) but themes/addons also
+          // import. A second physical copy — e.g. resolved from a theme/addon that
+          // doesn't surface valaxy's copy under pnpm — would mean `useI18n()` /
+          // stores read a different instance than the one valaxy registered,
+          // breaking translations / state. Forcing a single instance avoids that.
+          dedupe: ['vue', 'vue-router', 'vue-i18n', 'pinia'],
+        },
+
+        optimizeDeps: {
+          // do not entry node file
+          entries: [resolve(options.clientRoot, 'main.ts')],
+
+          // must need it
+          include: includedDeps,
+          exclude: uniq([...EXCLUDE, ...addonNames]),
+        },
+
+        server: {
+          fs: {
+            allow: uniq(fsAllow),
+          },
+        },
+      }
+
+      if (isInstalledGlobally) {
+        // @ts-expect-error type cast
+        injection.resolve.alias.vue = `${resolveImportPath('vue/dist/vue.esm-browser.js', true)}`
+      }
+
+      // Return only the injection object — Vite will merge it via
+      // `conf = mergeConfig(conf, injection)` internally, which means
+      // injection values override the current config. This is intentional:
+      // valaxy's alias entries (e.g. `valaxy/client/`) must take precedence
+      // over any less-specific aliases from user vite.config.ts (e.g. the
+      // bare `valaxy` alias in commonAlias), otherwise path resolution breaks.
+      //
+      // For `define`, we manually merge above (valaxy defaults + user overrides)
+      // so users can override feature flags in their vite.config.ts.
+      return injection
+    },
+
+    async transformIndexHtml(html) {
+      // console.log(toAtFS(options.clientRoot))
+      html = await getIndexHtml(options, html)
+      return {
+        html,
+        tags: [],
+      }
+    },
+  }
+}
+
+export function getDefine(_options: ResolvedValaxyOptions): Record<string, any> {
+  // remove vue-i18n warnings
+  // https://vue-i18n.intlify.dev/guide/advanced/optimization.html#reduce-bundle-size-with-feature-build-flags
+  // https://github.com/antfu/vitesse/issues/131
+  // https://github.com/intlify/vue-i18n-next/blob/dab6db19a1ef917425939275a41dfde9b6c61fe9/packages/vue-i18n-core/src/misc.ts#L20
+  // I create a issue https://github.com/intlify/vue-i18n-next/issues/961
+
+  return {
+    __VUE_PROD_DEVTOOLS__: false,
+    __INTLIFY_PROD_DEVTOOLS__: false,
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+  }
+}
+
+export async function getAlias(options: ResolvedValaxyOptions): Promise<AliasOptions> {
+  const alias: Alias[] = [
+    /**
+     * virtual module alias
+     * `/` 开头无法 declare module 类型
+     *
+     * #valaxy/* => /@valaxyjs/*
+     */
+    { find: /^#valaxy\/(.*)/, replacement: '/@valaxyjs/$1' },
+
+    { find: '~/', replacement: `${toAtFS(options.userRoot)}/` },
+    { find: 'valaxy/client/', replacement: `${toAtFS(options.clientRoot)}/` },
+    { find: 'valaxy/package.json', replacement: toAtFS(resolve(options.clientRoot, '../package.json')) },
+    { find: /^valaxy$/, replacement: toAtFS(resolve(options.clientRoot, 'index.ts')) },
+    { find: '@valaxyjs/client/', replacement: `${toAtFS(options.clientRoot)}/` },
+    // import theme
+    { find: `valaxy-theme-${options.theme}/client`, replacement: `${toAtFS(resolve(options.themeRoot))}/client/index.ts` },
+    { find: `valaxy-theme-${options.theme}/`, replacement: `${toAtFS(resolve(options.themeRoot))}/` },
+    { find: `valaxy-theme-${options.theme}`, replacement: `${toAtFS(resolve(options.themeRoot))}/client/index.ts` },
+  ]
+
+  if (options.config.vue?.browserTemplateCompilation) {
+    alias.push(
+      { find: /^vue$/, replacement: await resolveImportPath('vue/dist/vue.esm-bundler.js', true) },
+    )
+  }
+
+  // Pin the bare `vue-router` specifier to valaxy's own copy.
+  //
+  // The markdown transform injects `import { useRoute, useRouter } from 'vue-router'`
+  // into every user page. That import is resolved relative to the page file under
+  // the user's project root. Under pnpm's default (strict, non-hoisted) layout
+  // vue-router is not surfaced there, so Rolldown may externalize it — leaving a
+  // bare `import … from "vue-router"` in the page chunk that the browser cannot
+  // resolve at runtime ("Failed to resolve module specifier vue-router"). Aliasing
+  // to valaxy's copy makes the import resolve regardless of the user's package
+  // manager / hoisting, and guarantees a single instance.
+  //
+  // Alias to the package *directory* (not a built file) so Vite still applies the
+  // correct browser/node export conditions per build environment — pointing at a
+  // specific build (e.g. `vue-router.node.mjs`) would break client hydration.
+  // Exact-match regex so subpath imports (`vue-router/vite`, `vue-router/auto-routes`,
+  // `vue-router/experimental`) keep resolving normally.
+  // Resolution is best-effort: if vue-router can't be resolved, `resolveImportPath`
+  // logs a warning and returns undefined, and we skip adding the alias (Vite then
+  // falls back to its default resolution).
+  // `vue` is intentionally left to Vite's default resolution + `dedupe` below.
+  // See: https://github.com/YunYouJun/valaxy/issues/704 (and #701)
+  const vueRouterPkg = await resolveImportPath('vue-router/package.json')
+  if (vueRouterPkg)
+    alias.push({ find: /^vue-router$/, replacement: dirname(vueRouterPkg) })
+
+  options.addons.forEach((addon) => {
+    alias.push({
+      find: `${addon.name}/client/`,
+      replacement: `${toAtFS(`${resolve(addon.root)}`)}/client/`,
+    })
+    alias.push({
+      find: `${addon.name}/App.vue`,
+      replacement: `${toAtFS(resolve(addon.root))}/App.vue`,
+    })
+    // general subpath: e.g. valaxy-addon-xxx/components/Foo.vue -> addonRoot/components/Foo.vue
+    // Use regex to avoid Vite's normalizeSingleAlias stripping trailing slashes
+    // from string aliases, which would make this collide with the bare import alias.
+    alias.push({
+      find: new RegExp(`^${escapeRegExp(addon.name)}/(.+)`),
+      replacement: `${toAtFS(resolve(addon.root))}/$1`,
+    })
+    // bare import: e.g. valaxy-addon-xxx -> addonRoot/client/index.ts
+    alias.push({
+      find: addon.name,
+      replacement: `${toAtFS(resolve(addon.root))}/client/index.ts`,
+    })
+  })
+  // do not need it
+  // alias.push(...[
+  //   { find: /^valaxy-addon-(.*)$/, replacement: toAtFS(resolve(options.themeRoot, '../valaxy-addon-$1/client/index.ts')) },
+  // ])
+
+  // adapt for not exist addon
+  alias.push({
+    find: /^valaxy-addon-(.*)$/,
+    replacement: toAtFS(resolve(options.clientRoot, './addons/index.ts')),
+  })
+
+  return alias
+}

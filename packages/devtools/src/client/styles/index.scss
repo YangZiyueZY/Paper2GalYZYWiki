@@ -1,0 +1,20 @@
+.valaxy-devtools-container {
+  --c-divider: rgb(0 0 0 / 0.15);
+
+  .splitpanes__splitter {
+    background-color: var(--c-divider);
+  }
+
+  // Disable splitpanes transition to prevent panel deformation on page switch
+  .splitpanes__pane {
+    transition: none !important;
+  }
+}
+
+
+.dark {
+  .valaxy-devtools-container {
+    --c-divider: rgb(255 255 255 / 0.1);
+  }
+}
+
